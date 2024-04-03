@@ -9,12 +9,13 @@ import {
   FormControl,
   Avatar,
   useMediaQuery,
+  Divider
 } from "@mui/material";
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import LanguageIcon from '@mui/icons-material/Language';
-import {Menu, Close } from "@mui/icons-material";
+
+import LanguageIcon from "@mui/icons-material/Language";
+import { Menu, Close } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { setMode, setLogout } from "state";
+import { setLogout } from "state";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
 
@@ -42,13 +43,29 @@ const Navbar = () => {
             height: 56,
           }}
         />
-        <Box sx={{ borderLeft: 1, borderColor: 'divider', height: '55px' }}></Box>
+        <Divider orientation="vertical" flexItem />
+
+        <FlexBetween gap="1.5rem" padding="0.1rem">
+          <Typography
+            fontSize="clamp(0.75rem, 1rem, 1.5rem)"
+            onClick={() => navigate("/home")}
+            sx={{
+              "&:hover": {
+                color: "#4169e1",
+                cursor: "pointer",
+              },
+            }}
+          >
+            Sovereign Blues FC
+          </Typography>
+        </FlexBetween>
+      </FlexBetween>
+
+      <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center", pr: "5rem" }}>
         {isNonMobileScreens && (
-          <FlexBetween  gap="1rem" padding="0.1rem 1.5rem">
+          <FlexBetween gap="1rem">
             <Typography
               fontSize="clamp(0.75rem, 1rem, 1.5rem)"
-              src={`${process.env.PUBLIC_URL}/assets/logo.jpg`}
-              onClick={() => navigate("/home")}
               sx={{
                 "&:hover": {
                   color: "blue",
@@ -56,17 +73,55 @@ const Navbar = () => {
                 },
               }}
             >
-              Sovereign Blues FC
+              Prima echipă
+            </Typography>
+            <Typography
+              fontSize="clamp(0.75rem, 1rem, 1.5rem)"
+              sx={{
+                "&:hover": {
+                  color: "blue",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              Evenimente
+            </Typography>
+            <Typography
+              fontSize="clamp(0.75rem, 1rem, 1.5rem)"
+              sx={{
+                "&:hover": {
+                  color: "blue",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              Bilete
+            </Typography>
+            <Typography
+              fontSize="clamp(0.75rem, 1rem, 1.5rem)"
+              sx={{
+                "&:hover": {
+                  color: "blue",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              Istorie
+            </Typography>
+            <Typography
+              fontSize="clamp(0.75rem, 1rem, 1.5rem)"
+              sx={{
+                "&:hover": {
+                  color: "blue",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              Magazin
             </Typography>
           </FlexBetween>
-          
         )}
-
-        <Typography>Prima echipa</Typography>
-        <Typography>Evenimente</Typography>
-        <Typography>Bilete</Typography>
-        <Typography>FanShop</Typography>
-      </FlexBetween>
+      </Box>
 
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
