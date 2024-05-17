@@ -3,14 +3,14 @@ import { Card, CardMedia, Typography, CardContent } from '@mui/material';
 
 const MainNews = ({ image, title }) => {
     return (
-        <Card sx= {{ display: 'flex', margin: 2}}>
+        <Card sx= {{ display: 'flex', margin: 2, borderRadius: '16px', width: '100%' }}>
             <CardMedia
                 component="img"
-                sx={{ width: '100%', height: 'auto' }}
                 image= {image}
                 alt= "Featured image"
+                sx={{ width: '100%', height: 'auto' }}
             />
-            <CardContent>
+            <CardContent sx={{ display: 'flex', alignItems: 'center',  bgcolor: '#f5f5f5', width: '20rem' }}>
                 <Typography variant="h5">
                     { title }
                 </Typography>
