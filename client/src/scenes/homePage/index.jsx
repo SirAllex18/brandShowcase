@@ -3,12 +3,52 @@ import { Container, Grid, Divider, Box, Typography } from "@mui/material";
 import NavBar from "scenes/navBar";
 import MainCard from "widgets/MainNews";
 import NewsCard from "widgets/NewsCard";
+import MatchCard from "widgets/MatchCard";
 
 const HomePage = () => {
   const partners = [
     { name: "Nike", image: "/assets/audi.png", url: "https://www.audi.com" },
     { name: "Spotify", image: "/assets/spotify.png", url: "https://open.spotify.com/" },
     { name: "HP", image: "/assets/hp.png", url: "https://www.hp.com" },
+  ];
+
+  const matches = [
+    {
+      date: '13',
+      day: 'MONDAY',
+      month: 'MAY',
+      league: 'LALIGA',
+      time: '90+7',
+      homeTeam: { name: 'FC Barcelona', logo: '/path_to_barcelona_logo.png' },
+      awayTeam: { name: 'Real Sociedad', logo: '/path_to_sociedad_logo.png' },
+      venue: 'Estadi Olímpic Lluís Companys',
+      result: '2 - 0',
+      buttons: [{ text: 'FULL MATCH REPORT' }]
+    },
+    {
+      date: '16',
+      day: 'THURSDAY',
+      month: 'MAY',
+      league: 'LALIGA',
+      time: '21:30',
+      homeTeam: { name: 'Almería', logo: '/path_to_almeria_logo.png' },
+      awayTeam: { name: 'FC Barcelona', logo: '/path_to_barcelona_logo.png' },
+      venue: 'Power Horse Stadium',
+      result: '21:30',
+      buttons: []
+    },
+    {
+      date: '19',
+      day: 'SUNDAY',
+      month: 'MAY',
+      league: 'LALIGA',
+      time: '19:00',
+      homeTeam: { name: 'FC Barcelona', logo: '/path_to_barcelona_logo.png' },
+      awayTeam: { name: 'Rayo', logo: '/path_to_rayo_logo.png' },
+      venue: 'Estadi Olímpic Lluís Companys',
+      result: '19:00',
+      buttons: [{ text: 'TICKETS' }, { text: 'MATCH DAY TOUR' }]
+    }
   ];
 
   return (
@@ -114,6 +154,15 @@ const HomePage = () => {
             ))}
           </Box>
         </Box>
+        <Container>
+      <Grid container spacing={2} justifyContent="center">
+        {matches.map((match, index) => (
+          <Grid item xs={12} sm={6} md={index === 1 ? 6 : 3} key={index}>
+            <MatchCard {...match} />
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
       </Box>
     </>
   );
