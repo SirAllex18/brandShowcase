@@ -5,6 +5,8 @@ import MainCard from "widgets/MainNews";
 import NewsCard from "widgets/NewsCard";
 import MatchCard from "widgets/MatchCard";
 import PlayersSlider from "widgets/Players";
+import Trophies from "widgets/Trophies";
+import Footer from "scenes/footer";
 
 const HomePage = () => {
   const partners = [
@@ -171,17 +173,30 @@ const HomePage = () => {
         <Container sx={{ mt: 10 }}>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <Typography variant="h4">
-              Our Players
-            </Typography>
+            <Typography variant="h4">Our Players</Typography>
           </Box>
-          <PlayersSlider/>
+          <PlayersSlider />
         </Container>
+        <Container>
+        <Box
+            sx={{
+              display: "flex",
+              justifyContent: "start",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h4" sx={{ marginLeft: "1.2rem"}}>A legendary track record</Typography>
+          </Box>
+          <Box>
+            <Trophies image="/assets/NewsPicture.webp" />
+          </Box>
+        </Container>
+        <Footer/>
       </Box>
     </>
   );
