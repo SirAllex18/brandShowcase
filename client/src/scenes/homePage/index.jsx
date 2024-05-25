@@ -170,18 +170,21 @@ const HomePage = () => {
             ))}
           </Grid>
         </Container>
+        <Box sx={{ height: '100px', backgroundColor: '#e1e5ea', marginTop: '4rem' }} />
         <Container sx={{ mt: 10 }}>
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "start",
               alignItems: "center",
+              marginLeft: '1.2rem'
             }}
           >
             <Typography variant="h4">Our Players</Typography>
           </Box>
           <PlayersSlider />
         </Container>
+        <Box sx={{ height: '100px', backgroundColor: '#e1e5ea', my: '4rem' }} />
         <Container>
         <Box
             sx={{
