@@ -2,19 +2,17 @@ import { Box, Button, CardMedia, Container, Typography } from "@mui/material";
 import Navbar from "../navBar";
 import Footer from "scenes/footer";
 
-
-
 const Paragraphs = ({ text }) => {
-  const paragraphs = text.split('\n\n'); // Split text into paragraphs
+  const paragraphs = text.split('\n\n');
 
   return (
-    <Box sx={{ width: "100%", marginTop: '2rem' }}>
+    <Box sx={{ width: "70%", marginTop: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {paragraphs.map((paragraph, index) => (
         <Typography
           key={index}
           variant="body1"
-          paragraph // Adds margin-bottom to each paragraph
-          sx={{ textAlign: 'justify' }}
+          paragraph
+          sx={{ textAlign: 'justify', width: '100%' }}
         >
           {paragraph}
         </Typography>
@@ -24,7 +22,6 @@ const Paragraphs = ({ text }) => {
 };
 
 const NewsPage = () => {
-
   const text = `Real Madrid has a new date with destiny this evening in the final of the Euroleague 2024. Chus Mateo's team go in search of their twelfth European Cup at the Uber Arena in Berlin and will look to defend the title won a year ago in Kaunas to equal a feat not achieved since 1978, when the team coached by Ferrándiz was proclaimed champion two seasons in a row. The opponent will be Panathinaikos, the third most successful team with six titles, who are back in the final 13 years later.
 
   It will be an unprecedented Euroleague final in Berlin between Madrid and the Greeks. Two giants of European basketball with 17 European Cups between them but who have never faced each other in a title match. For Real Madrid, it will be their 21st final, and they have won 11 of them. It will be the seventh for Panathinaikos. With the exception of the Suproliga in 2001, they have won all six. They are the two great dominators of the millennium. The Greek team won the title in 2000, 2002, 2007, 2009, 2011 and we did so in 2015, 2018 and 2023.
@@ -64,15 +61,17 @@ const NewsPage = () => {
             variant="subtitle2"
             sx={{
               alignSelf: "flex-start",
-              marginLeft: '11 rem'
+              marginTop: '1rem',
+              marginLeft: '11rem'
             }}
           >
             Date example, hour updated
           </Typography>
         </Box>
-        <Paragraphs text={text} /> {/* Pass the text as a prop */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <Paragraphs text={text} />
+        </Box>
       </Container>
-      
       <Footer />
     </>
   );
