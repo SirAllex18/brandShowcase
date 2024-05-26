@@ -4,8 +4,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-// Import custom styles
-import './CardSlider.css';
+import '../customCSS/CardSlider.css';
 
 const PlayersSlider = () => {
   const cards = [
