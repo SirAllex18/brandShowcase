@@ -11,8 +11,8 @@ const PlayerCard = () => {
           <article class="card__article">
             <img src="assets/logo.jpg" alt="" class="card__img" />
             <div class="card__data">
-              <span class="card__description">Vancouver Mountains, Canada</span>
-              <h2 class="card__title">The Great Path</h2>
+              <span class="card__description">Player 1 Name</span>
+              <h2 class="card__title">Goluri marcate: 20</h2>
             </div>
           </article>
         </div>

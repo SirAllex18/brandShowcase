@@ -45,42 +45,30 @@ const PlayersPage = () => {
           <Typography variant="body1" align="center">
             Portari
           </Typography>
-          <Box sx={{display: 'flex'}} >
-            <PlayerCard />
-            <PlayerCard />
-            <PlayerCard />
+          <Box sx={{ display: "flex" }}>
             <PlayerCard />
           </Box>
           <Typography variant="body1" align="center">
             Fundasi
           </Typography>
-          <Box sx={{display: 'flex'}} >
-            <PlayerCard />
-            <PlayerCard />
-            <PlayerCard />
+          <Box sx={{ display: "flex" }}>
             <PlayerCard />
           </Box>
           <Typography variant="body1" align="center">
             Mijlocasi
           </Typography>
-          <Box sx={{display: 'flex'}} >
-            <PlayerCard />
-            <PlayerCard />
-            <PlayerCard />
+          <Box sx={{ display: "flex" }}>
             <PlayerCard />
           </Box>
           <Typography variant="body1" align="center">
             Atacanti
           </Typography>
-          <Box sx={{display: 'flex'}} >
-            <PlayerCard />
-            <PlayerCard />
-            <PlayerCard />
+          <Box sx={{ display: "flex" }}>
             <PlayerCard />
           </Box>
         </Box>
       </Container>
-      <Footer/>
+      <Footer />
     </>
   );
 };
