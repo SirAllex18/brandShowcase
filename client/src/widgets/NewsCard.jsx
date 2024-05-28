@@ -1,9 +1,15 @@
 import React from 'react';
 import { Card, CardMedia, Typography, CardContent } from '@mui/material';
+import { useNavigate } from 'react-router-dom';     
 
 const NewsCard = ({ image, title }) => {
+    const navigate = useNavigate();
+
+    const handleCardClick = () => {
+      navigate('/news');
+    };
     return (
-        <Card sx={{ m:2, boxShadow: 'none', border: 0, borderRadius: '16px', width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <Card sx={{ m:2, boxShadow: 'none', border: 0, borderRadius: '16px', width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}   onClick={handleCardClick}>
             <CardMedia
                 component="img"
                 height="220"

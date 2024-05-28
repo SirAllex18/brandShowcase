@@ -68,7 +68,7 @@ const ImageGrid = () => {
                 }}
               >
                 <Typography variant="h6">{item.title}</Typography>
-                <Button variant="outlined" size="medium" sx={{ mt: 1 }}>
+                <Button variant="outlined" size="medium" sx={{ mt: 1, fontSize: '1.2rem' }}>
                   {item.buttonText}
                 </Button>
               </Box>
@@ -107,7 +107,7 @@ const ImageGrid = () => {
                 }}
               >
                 <Typography variant="h6">{item.title}</Typography>
-                <Button variant="outlined" size="medium" sx={{ mt: 1, color: 'red' }}>
+                <Button variant="outlined" size="medium" sx={{ mt: 1, color: 'red', fontSize: '1.2rem' }}>
                   {item.buttonText}
                 </Button>
               </Box>
