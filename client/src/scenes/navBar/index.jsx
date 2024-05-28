@@ -11,12 +11,11 @@ import {
   useMediaQuery,
   Divider
 } from "@mui/material";
-
+import { useNavigate } from 'react-router-dom';
 import LanguageIcon from "@mui/icons-material/Language";
 import { Menu, Close } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "state";
-import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
 
 const Navbar = () => {
@@ -27,6 +26,12 @@ const Navbar = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
   const fullName = "Alexandru";
+  const handleShopClick = () => {
+    navigate('/store');
+  };
+  const handleTeamClick = () => {
+    navigate('/players');
+  };
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor="#F3F5F8">
@@ -48,7 +53,7 @@ const Navbar = () => {
         <FlexBetween gap="1.5rem" padding="0.1rem">
           <Typography
             fontSize="clamp(0.75rem, 1rem, 1.5rem)"
-            onClick={() => navigate("/home")}
+            onClick={() => navigate("/")}
             sx={{
               "&:hover": {
                 color: "#4169e1",
@@ -72,6 +77,7 @@ const Navbar = () => {
                   cursor: "pointer",
                 },
               }}
+              onClick={handleTeamClick}
             >
               Prima echipă
             </Typography>
@@ -116,6 +122,7 @@ const Navbar = () => {
                   cursor: "pointer",
                 },
               }}
+              onClick={handleShopClick}
             >
               Magazin
             </Typography>
