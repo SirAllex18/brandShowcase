@@ -60,45 +60,23 @@ const DropdownMenu = () => {
             <Typography variant="h6" gutterBottom>
               Mens
             </Typography>
-            <MenuItem onClick={() => handleMenuItemClick('/mens/tracksuits')}>Tracksuits</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/mens/tshirts')}>T-Shirts</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/mens/sweatshirts')}>Sweatshirts</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/mens/jackets')}>Jackets</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/mens/pants')}>Pants</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('/')}>Tracksuits</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('/')}>T-Shirts</MenuItem>
+    
           </Box>
           <Box sx={{ marginRight: '2rem' }}>
             <Typography variant="h6" gutterBottom>
               Womens
             </Typography>
-            <MenuItem onClick={() => handleMenuItemClick('/womens/tracksuits')}>Tracksuits</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/womens/tshirts')}>T-Shirts</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/womens/sweatshirts')}>Sweatshirts</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/womens/jackets')}>Jackets</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/womens/pants')}>Pants</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('/')}>Tracksuits</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('/')}>T-Shirts</MenuItem>
           </Box>
           <Box sx={{ marginRight: '2rem' }}>
             <Typography variant="h6" gutterBottom>
               Youth
             </Typography>
-            <MenuItem onClick={() => handleMenuItemClick('/youth/tracksuits')}>Tracksuits</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/youth/tshirts')}>T-Shirts</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/youth/sweatshirts')}>Sweatshirts</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/youth/jackets')}>Jackets</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/youth/pants')}>Pants</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/youth/baby-clothing')}>Baby Clothing</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/youth/pajamas')}>Pajamas</MenuItem>
-          </Box>
-          <Box>
-            <Typography variant="h6" gutterBottom>
-              Collections
-            </Typography>
-            <MenuItem onClick={() => handleMenuItemClick('/collections/kids-on-tour')}>Kids on Tour</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/collections/lifestyle')}>Lifestyle</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/collections/eco-essentials')}>Eco Essentials</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/collections/color-crest')}>Color Crest</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/collections/ladies-vintage')}>Ladies Vintage</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/collections/urban-gold')}>Urban Gold</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/collections/signature')}>Signature</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('/')}>Tracksuits</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('/')}>T-Shirts</MenuItem>
           </Box>
         </Box>
       </Menu>
