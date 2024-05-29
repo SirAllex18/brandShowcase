@@ -7,6 +7,7 @@ import MatchCard from "widgets/MatchCard";
 import PlayersSlider from "widgets/Players";
 import Trophies from "widgets/Trophies";
 import Footer from "scenes/footer";
+import NewsDialogue from "widgets/NewsDialogue";
 
 const HomePage = () => {
   const partners = [
@@ -115,6 +116,9 @@ const HomePage = () => {
               </Grid>
             </Grid>
           </Grid>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <NewsDialogue/>
+          </Box>
         </Container>
         <Box
           display="flex"

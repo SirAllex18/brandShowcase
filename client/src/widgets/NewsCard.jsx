@@ -9,7 +9,7 @@ const NewsCard = ({ image, title }) => {
       navigate('/news');
     };
     return (
-        <Card sx={{ m:2, boxShadow: 'none', border: 0, borderRadius: '16px', width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}   onClick={handleCardClick}>
+        <Card sx={{ m:2, boxShadow: 'none', border: 0, borderRadius: '16px', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', '&:hover' : { cursor: 'pointer' } }}   onClick={handleCardClick}>
             <CardMedia
                 component="img"
                 height="220"
@@ -19,7 +19,8 @@ const NewsCard = ({ image, title }) => {
                     width: '100%',
                     transition: 'transform 0.3s ease-in-out',
                     '&:hover': {
-                        transform: 'scale(1.1)'
+                        transform: 'scale(1.1)',
+                        cursor: 'pointer'
                     }
                 }}
             />
