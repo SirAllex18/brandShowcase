@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Grid, Divider, Box, Typography } from "@mui/material";
 import NavBar from "scenes/navBar";
 import MainCard from "widgets/MainNews";
@@ -59,6 +59,28 @@ const HomePage = () => {
     },
   ];
 
+  const [newsItems, setNewsItems] = useState([]);
+
+  useEffect(() => {
+    const fetchNewsItems = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3001/files/getAllNews"
+        );
+        const data = await response.json();
+        setNewsItems(data);
+      } catch (error) {
+        console.error("Failed to fetch news items:", error);
+      }
+    };
+
+    fetchNewsItems();
+  }, []);
+
+  const addNewsItem = (newItem) => {
+    setNewsItems(prevItems => [newItem, ...prevItems]);
+  };
+
   return (
     <>
       <Box>
@@ -72,52 +94,21 @@ const HomePage = () => {
               />
             </Grid>
             <Grid container item xs={12} justifyContent="center" spacing={3}>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <NewsCard
-                  title="This is some example of text description of the title, must proceed with caution"
-                  image="/assets/NewsPicture.webp"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <NewsCard
-                  title="This is some example of text description of the title, must proceed with caution"
-                  image="/assets/NewsPicture.webp"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <NewsCard
-                  title="This is some example of text description of the title, must proceed with caution"
-                  image="/assets/NewsPicture.webp"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <NewsCard
-                  title="This is some example of text description of the title, must proceed with caution"
-                  image="/assets/NewsPicture.webp"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <NewsCard
-                  title="This is some example of text description of the title, must proceed with caution"
-                  image="/assets/NewsPicture.webp"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <NewsCard
-                  title="This is some example of text description of the title, must proceed with caution"
-                  image="/assets/NewsPicture.webp"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <NewsCard
-                  title="This is some example of text description of the title, must proceed with caution"
-                  image="/assets/NewsPicture.webp"
-                />
-              </Grid>
+              {newsItems.map((newsItem) => (
+                <Grid item key={newsItem._id} xs={12} sm={6} md={4} lg={3}>
+                  <NewsCard
+                    id={newsItem._id}
+                    title={newsItem.title}
+                    image={newsItem.imagePath || "/assets/NewsPicture.webp"}
+                    content={newsItem.content}
+                    preview={newsItem.preview}
+                  />
+                </Grid>
+              ))}
             </Grid>
           </Grid>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <NewsDialogue/>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <NewsDialogue addNewsItem={addNewsItem} />
           </Box>
         </Container>
         <Box
@@ -174,36 +165,44 @@ const HomePage = () => {
             ))}
           </Grid>
         </Container>
-        <Box sx={{ height: '100px', backgroundColor: '#e1e5ea', marginTop: '4rem' }} />
+        <Box
+          sx={{
+            height: "100px",
+            backgroundColor: "#e1e5ea",
+            marginTop: "4rem",
+          }}
+        />
         <Container sx={{ mt: 10 }}>
           <Box
             sx={{
               display: "flex",
               justifyContent: "start",
               alignItems: "center",
-              marginLeft: '1.2rem'
+              marginLeft: "1.2rem",
             }}
           >
             <Typography variant="h4">Our Players</Typography>
           </Box>
           <PlayersSlider />
         </Container>
-        <Box sx={{ height: '100px', backgroundColor: '#e1e5ea', my: '4rem' }} />
+        <Box sx={{ height: "100px", backgroundColor: "#e1e5ea", my: "4rem" }} />
         <Container>
-        <Box
+          <Box
             sx={{
               display: "flex",
               justifyContent: "start",
               alignItems: "center",
             }}
           >
-            <Typography variant="h4" sx={{ marginLeft: "1.2rem"}}>A legendary track record</Typography>
+            <Typography variant="h4" sx={{ marginLeft: "1.2rem" }}>
+              A legendary track record
+            </Typography>
           </Box>
           <Box>
             <Trophies image="/assets/NewsPicture.webp" />
           </Box>
         </Container>
-        <Footer/>
+        <Footer />
       </Box>
     </>
   );

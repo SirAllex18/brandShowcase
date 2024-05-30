@@ -9,27 +9,27 @@ import '../customCSS/CardSlider.css';
 const PlayersSlider = () => {
   const cards = [
     {
-      image: 'assets/hp.png',
+      image: 'assets/item1.webp',
       name: 'ExamplePlayer',
       description: 'Stats: Numbers: Photos: ETC',
     },
     {
-      image: 'assets/hp.png',
+      image: 'assets/item1.webp',
       name: 'ExamplePlayer',
       description: 'Stats: Numbers: Photos: ETC',
     },
     {
-      image: 'assets/hp.png',
+      image: 'assets/item1.webp',
       name: 'ExamplePlayer',
       description: 'Stats: Numbers: Photos: ETC',
     },
     {
-      image: 'assets/hp.png',
+      image: 'assets/item1.webp',
       name: 'ExamplePlayer',
       description: 'Stats: Numbers: Photos: ETC',
     },
     {
-      image: 'assets/hp.png',
+      image: 'assets/item1.webp',
       name: 'ExamplePlayer',
       description: 'Stats: Numbers: Photos: ETC',
     },
@@ -39,7 +39,7 @@ const PlayersSlider = () => {
     <section className="container">
       <Swiper
         modules={[Navigation, Pagination]}
-        spaceBetween={50}
+        spaceBetween={5}
         slidesPerView={3}
         navigation
         pagination={{ clickable: true }}

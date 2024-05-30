@@ -18,3 +18,13 @@ export const FileInsert = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 }
+
+
+export const getAllNews = async (req, res) => {
+    try{
+        const newItems = await News.find();
+        res.status(200).json(newItems);
+    } catch(err){
+        res.status(500).json({ error: err.message });
+    }
+};

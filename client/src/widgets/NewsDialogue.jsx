@@ -5,7 +5,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-export default function NewsDialogue() {
+
+export default function NewsDialogue({ addNewsItem }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -34,6 +35,7 @@ export default function NewsDialogue() {
       const data = await response.json();
       if (response.ok) {
         console.log('News added:', data);
+        addNewsItem(data); 
         handleClose();
       } else {
         console.error('Failed to add news:', data);

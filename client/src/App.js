@@ -19,7 +19,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/players" element={<PlayersPage /> } />
-          <Route path="/news" element={<NewsPage /> } />
+          <Route path="/news/:id" element={<NewsPage /> } />
           <Route path="/store" element={<ShopPage /> } />
           <Route path="/productName:id" element={<ProductPage /> } />
         </Routes>
