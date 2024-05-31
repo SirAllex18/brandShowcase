@@ -64,9 +64,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchNewsItems = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3001/files/getAllNews"
-        );
+        const response = await fetch("http://localhost:3001/files/getAllNews");
         const data = await response.json();
         setNewsItems(data);
       } catch (error) {
@@ -78,8 +76,38 @@ const HomePage = () => {
   }, []);
 
   const addNewsItem = (newItem) => {
-    setNewsItems(prevItems => [newItem, ...prevItems]);
+    setNewsItems((prevItems) => [newItem, ...prevItems]);
   };
+
+  const [data, setData] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(1990);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/trophies/getTrophies'); // Adjust the URL as needed
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log('Fetched data:', data); // Debugging line
+        setData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleYearChange = (year) => {
+    setSelectedYear(year);
+  };
+
+  if (!data) {
+    return <Typography>Loading...</Typography>;
+  }
+  const selectedYearData = data[0].records ? data[0].records.find(record => record.year === selectedYear) || {} : {};
 
   return (
     <>
@@ -199,7 +227,12 @@ const HomePage = () => {
             </Typography>
           </Box>
           <Box>
-            <Trophies image="/assets/NewsPicture.webp" />
+            <Trophies
+              image="/assets/NewsPicture.webp"
+              trophies={selectedYearData.trophies || {}}
+              selectedYear={selectedYear}
+              onYearChange={handleYearChange}
+            />
           </Box>
         </Container>
         <Footer />

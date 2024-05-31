@@ -8,19 +8,19 @@ import {
   Slider
 } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
-import InputSlider from "./Slider"
+import InputSlider from "./Slider"; // Adjust the import path as necessary
 
-const Trophies = ({ image }) => {
-  const trophies = [
-    { count: 2, label: 'UEFA Cups' },
-    { count: 2, label: 'UEFA Cups' },
-    { count: 2, label: 'UEFA Cups' },
-    { count: 2, label: 'UEFA Cups' },
-    { count: 2, label: 'UEFA Cups' },
-    { count: 2, label: 'UEFA Cups' },
-    { count: 2, label: 'UEFA Cups' },
+const Trophies = ({ image, trophies, selectedYear, onYearChange }) => {
+  const trophyLabels = [
+    { key: 'ChampionsLeague', label: 'Champions League' },
+    { key: 'EuropaLeague', label: 'Europa League' },
+    { key: 'CampionatulRomaniei', label: 'Campionatul Romaniei' },
+    { key: 'CupaRomaniei', label: 'Cupa Romaniei' },
+    { key: 'Supercupe', label: 'Supercupe' },
+    { key: 'ConferenceLeague', label: 'Conference League' },
+    { key: 'MondialulCluburilor', label: 'Mondialul Cluburilor' },
   ];
-
+  const maxTrophyValue = 25;
   return (
     <Card
       sx={{
@@ -35,7 +35,7 @@ const Trophies = ({ image }) => {
         <CardMedia
           component="img"
           image={image}
-          alt="News Image"
+          alt="Team Image"
           sx={{
             width: "60%",
             height: "auto",
@@ -45,9 +45,9 @@ const Trophies = ({ image }) => {
             },
           }}
         />
-        <CardContent sx={{ width: "40%", display: 'flex', flexDirection: 'column' }}> 
+        <CardContent sx={{ width: "40%", display: 'flex', flexDirection: 'column' }}>
           <Grid container spacing={2}>
-            {trophies.map((trophy, index) => (
+            {trophyLabels.map((trophy, index) => (
               <Grid item xs={12} sm={6} md={6} key={index}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <CardMedia
@@ -55,22 +55,24 @@ const Trophies = ({ image }) => {
                     image="/assets/trophy.jpg"
                     sx={{ width: '20%', height: 'auto' }}
                   />
-                  <Typography sx={{ marginLeft: 2 }}>{trophy.count}</Typography>
+                  <Typography sx={{ marginLeft: 2 }}>{trophies[trophy.key] || 0}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                   <Typography variant="caption" sx={{ marginTop: 1 }}>{trophy.label}</Typography>
                   <Slider
                     size="small"
-                    defaultValue={10}
-                    aria-label="Small"
+                    value={trophies[trophy.key] || 0}
+                    aria-label={trophy.label}
                     valueLabelDisplay="auto"
-                    sx={{ width: '100%', mt: '-12px' }} 
+                    sx={{ width: '100%', mt: '-12px' }}
+                    min={0}
+                    max={maxTrophyValue}
                   />
                 </Box>
               </Grid>
             ))}
           </Grid>
-          <InputSlider/>
+          <InputSlider value={selectedYear} onChange={onYearChange} />
         </CardContent>
       </Box>
     </Card>
