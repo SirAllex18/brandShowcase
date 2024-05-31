@@ -10,6 +10,7 @@ import path from "path";
 import { fileURLToPath} from "url";
 import authRoutes from "./routes/auth.js";
 import newsRoutes from "./routes/newsInsert.js"
+import trophyRoutes from "./routes/trophies.js"
 import { register } from "./controllers/auth.js"
 
 /*  CONFIGURATIONS */
@@ -46,6 +47,7 @@ app.post("/auth/register", upload.single("picture"), register)
 // ROUTES
 app.use("/auth", authRoutes);
 app.use("/files", newsRoutes);
+app.use("/trophies", trophyRoutes )
 
 const PORT = process.env.PORT || 6001;
 mongoose.connect(process.env.MONGO_URL)
