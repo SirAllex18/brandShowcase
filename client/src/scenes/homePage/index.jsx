@@ -85,12 +85,11 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/trophies/getTrophies'); // Adjust the URL as needed
+        const response = await fetch('http://localhost:3001/trophies/getTrophies'); 
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        console.log('Fetched data:', data); // Debugging line
         setData(data);
       } catch (error) {
         console.error('Error fetching data:', error);
