@@ -20,46 +20,37 @@ const HomePage = () => {
     { name: "HP", image: "/assets/hp.png", url: "https://www.hp.com" },
   ];
 
-  const matches = [
-    {
-      date: "13",
-      day: "MONDAY",
-      month: "MAY",
-      league: "LALIGA",
-      time: "90+7",
-      homeTeam: { name: "FC Barcelona", logo: "/path_to_barcelona_logo.png" },
-      awayTeam: { name: "Real Sociedad", logo: "/path_to_sociedad_logo.png" },
-      venue: "Estadi Olímpic Lluís Companys",
-      result: "2 - 0",
-      buttons: [{ text: "FULL MATCH REPORT" }],
-    },
-    {
-      date: "16",
-      day: "THURSDAY",
-      month: "MAY",
-      league: "LALIGA",
-      time: "21:30",
-      homeTeam: { name: "Almería", logo: "/path_to_almeria_logo.png" },
-      awayTeam: { name: "FC Barcelona", logo: "/path_to_barcelona_logo.png" },
-      venue: "Power Horse Stadium",
-      result: "21:30",
-      buttons: [],
-    },
-    {
-      date: "19",
-      day: "SUNDAY",
-      month: "MAY",
-      league: "LALIGA",
-      time: "19:00",
-      homeTeam: { name: "FC Barcelona", logo: "/path_to_barcelona_logo.png" },
-      awayTeam: { name: "Rayo", logo: "/path_to_rayo_logo.png" },
-      venue: "Estadi Olímpic Lluís Companys",
-      result: "19:00",
-      buttons: [{ text: "TICKETS" }, { text: "MATCH DAY TOUR" }],
-    },
-  ];
-
+  const [matchInfo, setMatchInfo] = useState([]);
   const [newsItems, setNewsItems] = useState([]);
+  const [data, setData] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(1990);
+
+  const addNewsItem = (newItem) => {
+    setNewsItems((prevItems) => [newItem, ...prevItems]);
+  };
+  const selectedYearData = data[0].records
+    ? data[0].records.find((record) => record.year === selectedYear) || {}
+    : {};
+  const handleYearChange = (year) => {
+    setSelectedYear(year);
+  };
+
+  useEffect(() => {
+    const getMatch = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/games/getMatchDay");
+        const data = await response.json();
+        const example = [];
+        example.push(data);
+        example.push(data);
+        setMatchInfo(example);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getMatch();
+  }, []);
 
   useEffect(() => {
     const fetchNewsItems = async () => {
@@ -75,38 +66,28 @@ const HomePage = () => {
     fetchNewsItems();
   }, []);
 
-  const addNewsItem = (newItem) => {
-    setNewsItems((prevItems) => [newItem, ...prevItems]);
-  };
-
-  const [data, setData] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(1990);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/trophies/getTrophies'); 
+        const response = await fetch(
+          "http://localhost:3001/trophies/getTrophies"
+        );
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         const data = await response.json();
         setData(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  const handleYearChange = (year) => {
-    setSelectedYear(year);
-  };
-
   if (!data) {
     return <Typography>Loading...</Typography>;
   }
-  const selectedYearData = data[0].records ? data[0].records.find(record => record.year === selectedYear) || {} : {};
 
   return (
     <>
@@ -185,7 +166,7 @@ const HomePage = () => {
         </Box>
         <Container>
           <Grid container spacing={2} justifyContent="center">
-            {matches.map((match, index) => (
+            {matchInfo.map((match, index) => (
               <Grid item xs={12} sm={6} md={index === 1 ? 6 : 3} key={index}>
                 <MatchCard {...match} />
               </Grid>
