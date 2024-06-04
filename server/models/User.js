@@ -25,6 +25,20 @@ const UserSchema = new mongoose.Schema(
       require: true,
       min: 8,
     },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user',
+    },
+    subscribed: {
+      type: Boolean,
+      default: false,
+    },
+    cartProducts: {
+      type: Array,
+      default: [],
+    }
+
   },
   { timestamps: true }
 );
