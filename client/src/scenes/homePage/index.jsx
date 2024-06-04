@@ -8,6 +8,7 @@ import PlayersSlider from "widgets/Players";
 import Trophies from "widgets/Trophies";
 import Footer from "scenes/footer";
 import NewsDialogue from "widgets/NewsDialogue";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
   const partners = [
@@ -24,13 +25,11 @@ const HomePage = () => {
   const [newsItems, setNewsItems] = useState([]);
   const [data, setData] = useState(null);
   const [selectedYear, setSelectedYear] = useState(1990);
-
+  const user = useSelector((state) => state.auth.user);
   const addNewsItem = (newItem) => {
     setNewsItems((prevItems) => [newItem, ...prevItems]);
   };
-  const selectedYearData = data[0].records
-    ? data[0].records.find((record) => record.year === selectedYear) || {}
-    : {};
+
   const handleYearChange = (year) => {
     setSelectedYear(year);
   };
@@ -38,13 +37,13 @@ const HomePage = () => {
   useEffect(() => {
     const getMatch = async () => {
       try {
-        const response = await fetch("http://localhost:3001/games/getMatchDay");
+        const flag = matchInfo.length? true : false;
+        const url = `http://localhost:3001/games/getMatchDay/${flag}`;
+     
+        const response = await fetch(url);
         const data = await response.json();
-        const example = [];
-        example.push(data);
-        example.push(data);
-        setMatchInfo(example);
-        console.log(data);
+        setMatchInfo(data);
+      
       } catch (err) {
         console.log(err);
       }
@@ -89,6 +88,10 @@ const HomePage = () => {
     return <Typography>Loading...</Typography>;
   }
 
+  const selectedYearData = data[0]?.records
+    ? data[0].records.find((record) => record.year === selectedYear) || {}
+    : {};
+  console.log(matchInfo)
   return (
     <>
       <Box>
@@ -115,9 +118,11 @@ const HomePage = () => {
               ))}
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <NewsDialogue addNewsItem={addNewsItem} />
-          </Box>
+          {user?.role === 'admin' && (
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <NewsDialogue addNewsItem={addNewsItem} />
+            </Box>
+          )}
         </Container>
         <Box
           display="flex"
@@ -164,13 +169,17 @@ const HomePage = () => {
             ))}
           </Box>
         </Box>
-        <Container>
+        <Container maxWidth="xl">
           <Grid container spacing={2} justifyContent="center">
-            {matchInfo.map((match, index) => (
-              <Grid item xs={12} sm={6} md={index === 1 ? 6 : 3} key={index}>
-                <MatchCard {...match} />
-              </Grid>
-            ))}
+            {Array.isArray(matchInfo) ? (
+              matchInfo.map((match, index) => (
+                <Grid item xs={12} sm={6} md={index === 1 ? 6 : 3} key={index}>
+                  <MatchCard {...match} />
+                </Grid>
+              ))
+            ) : (
+              <Typography>Error: matchInfo is not an array</Typography>
+            )}
           </Grid>
         </Container>
         <Box

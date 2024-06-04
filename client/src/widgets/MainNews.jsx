@@ -26,7 +26,7 @@ const MainNews = ({ image, title }) => {
                 }}
             />
             <CardContent sx={{ display: 'flex', alignItems: 'center',  bgcolor: '#f5f5f5', width: '20rem' }}>
-                <Typography variant="h5">
+                <Typography variant="h3">
                     { title }
                 </Typography>
             </CardContent>

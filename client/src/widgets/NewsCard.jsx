@@ -36,8 +36,8 @@ const NewsCard = ({ id, title, image, preview, content }) => {
           },
         }}
       />
-      <CardContent>
-        <Typography variant="body2" color="text.primary">
+      <CardContent sx={{textAlign: "center"}}>
+        <Typography variant="h5" color="text.primary">
           {preview}
         </Typography>
       </CardContent>
