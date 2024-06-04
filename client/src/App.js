@@ -5,15 +5,19 @@ import LoginPage from "scenes/loginPage";
 import NewsPage from "scenes/newsPage";
 import ShopPage from "scenes/shopPage/Store"
 import ProductPage from "scenes/shopPage/ProductPage";
+import { useMemo } from "react";
 
-import { CssBaseline } from "@mui/material";
+import { createTheme } from "@mui/material/styles"
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { themeSettings } from "./theme";
 
 function App() {
-
+  const theme =  createTheme(themeSettings())
 
   return (
     <div className="app">
       <BrowserRouter>
+      <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -23,6 +27,7 @@ function App() {
           <Route path="/store" element={<ShopPage /> } />
           <Route path="/productName:id" element={<ProductPage /> } />
         </Routes>
+        </ThemeProvider>
       </BrowserRouter>
     </div>
   );
