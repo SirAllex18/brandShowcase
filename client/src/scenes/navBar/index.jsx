@@ -28,7 +28,7 @@ const Navbar = () => {
   const user = useSelector((state) => state.auth.user);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
-  const fullName = user ? user : "Log In";
+  const fullName = user ? `${user.firstName}` : "Log In";
   const handleShopClick = () => {
     navigate("/store");
   };
@@ -40,7 +40,7 @@ const Navbar = () => {
     navigate("/login")
   };
   return (
-    <FlexBetween padding="0.75rem 6%" backgroundColor="#F3F5F8">
+    <FlexBetween padding="0.75rem 2%" backgroundColor="#F3F5F8">
       <FlexBetween gap="1.75rem">
         <Avatar
           src={`${process.env.PUBLIC_URL}/assets/logo.jpg`}
@@ -156,14 +156,15 @@ const Navbar = () => {
               <Typography fontSize="0.8rem">Sign In</Typography>
             </Button>
           ) : (
-            <Box>
+            <Box sx={{marginRight: "1rem", display: 'flex', flexDirection: "column", justifyContent: 'center', alignContent: 'center'}}>
               <Typography>Welcome, {fullName}! </Typography>
               <Button
+                size="small"
                 variant="outlined"
                 startIcon={<ManageAccountsIcon />}
-                sx={{ marginRight: "1rem", borderRadius: 3 }}
+                sx={{ borderRadius: 3 }}
               >
-                <Typography fontSize="0.8rem">Account</Typography>
+                <Typography fontSize="0.7rem">Account</Typography>
               </Button>
             </Box>
           )}

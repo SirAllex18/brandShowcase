@@ -12,7 +12,7 @@ const Paragraphs = ({ text }) => {
       {paragraphs.map((paragraph, index) => (
         <Typography
           key={index}
-          variant="body1"
+          variant="h4"
           paragraph
           sx={{ textAlign: 'justify', width: '100%' }}
         >
@@ -46,7 +46,7 @@ const NewsPage = () => {
           </Typography>
           <CardMedia
             component="img"
-            image="assets/NewsPicture.webp"
+            image={`${process.env.PUBLIC_URL}/assets/NewsPicture.webp`}
             alt="News Image"
             sx={{
               marginTop: "1rem",
@@ -63,7 +63,7 @@ const NewsPage = () => {
               marginLeft: '11rem'
             }}
           >
-            Date example, hour updated
+            06/06/2024, 20:00
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
