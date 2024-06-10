@@ -3,6 +3,7 @@ import HomePage from "scenes/homePage";
 import PlayersPage from "scenes/playersPage"
 import LoginPage from "scenes/loginPage"; 
 import NewsPage from "scenes/newsPage";
+import CategoryPage from "scenes/shopPage/CategoryPage";
 import ShopPage from "scenes/shopPage/Store"
 import ProductPage from "scenes/shopPage/ProductPage";
 import { useMemo } from "react";
@@ -25,7 +26,8 @@ function App() {
           <Route path="/players" element={<PlayersPage /> } />
           <Route path="/news/:id" element={<NewsPage /> } />
           <Route path="/store" element={<ShopPage /> } />
-          <Route path="/productName:id" element={<ProductPage /> } />
+          <Route path="/store/:productId" element={<ProductPage /> } />
+          <Route path="/store/category" element={<CategoryPage />} />
         </Routes>
         </ThemeProvider>
       </BrowserRouter>

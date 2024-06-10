@@ -174,7 +174,9 @@ const HomePage = () => {
             {Array.isArray(matchInfo) ? (
               matchInfo.map((match, index) => (
                 <Grid item xs={12} sm={6} md={index === 1 ? 6 : 3} key={index}>
-                  <MatchCard {...match} />
+                  <MatchCard 
+                  {...match}
+                  showScore = { index === 0} />
                 </Grid>
               ))
             ) : (
