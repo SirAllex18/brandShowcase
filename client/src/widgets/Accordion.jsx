@@ -10,9 +10,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CheckIcon from "@mui/icons-material/Check";
 
-export default function ControlledAccordions() {
+export default function ControlledAccordions({description, materials}) {
   const [expanded, setExpanded] = React.useState(false);
-
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -34,7 +33,7 @@ export default function ControlledAccordions() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            This limited edition T-shit blah blah Description
+            {description}
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -52,30 +51,16 @@ export default function ControlledAccordions() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <List dense="true">
-            <ListItem>
-              <ListItemIcon>
-                <CheckIcon />
-              </ListItemIcon>
-              <ListItemText primary="100% Cotton" />
-            </ListItem>
-          </List>
-          <List dense="true">
-            <ListItem>
-              <ListItemIcon>
-                <CheckIcon />
-              </ListItemIcon>
-              <ListItemText primary="Single-line item" />
-            </ListItem>
-          </List>
-          <List dense="true">
-            <ListItem>
-              <ListItemIcon>
-                <CheckIcon />
-              </ListItemIcon>
-              <ListItemText primary="Single-line item" />
-            </ListItem>
-          </List>
+          {materials.map((item, index) => (
+              <List dense="true" key={index}>
+              <ListItem>
+                <ListItemIcon>
+                  <CheckIcon />
+                </ListItemIcon>
+                <ListItemText primary={item} />
+              </ListItem>
+            </List>
+          ))}
         </AccordionDetails>
       </Accordion>
     </div>

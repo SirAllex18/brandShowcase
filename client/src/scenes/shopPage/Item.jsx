@@ -3,66 +3,62 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, Divider, Button } from "@mui/material";
+import { Box, Divider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const items = [
-  {
-    title: "Example of Title T-shirt etc",
-    image: "/assets/item1.webp",
-    price: "40$",
-  },
-  {
-    title: "Example of Title T-shirt etc",
-    image: "/assets/item1.webp",
-    price: "40$",
-  },
-  {
-    title: "Example of Title T-shirt etc",
-    image: "/assets/item1.webp",
-    price: "40$",
-  },
-  {
-    title: "Example of Title T-shirt etc",
-    image: "/assets/item1.webp",
-    price: "40$",
-  },
-];
-const Item = () => {
+const Item = ({
+  title,
+  description,
+  gender,
+  materials,
+  sizes,
+  price,
+  imageUrl,
+  id,
+  subCategory
+}) => {
+  const navigateTo = useNavigate();
+  const handleCardClick = () => {
+    navigateTo(`/store/${id}`, {
+      state: { title, description, gender, materials, sizes, price, imageUrl, subCategory },
+    });
+  };
   return (
-    <>
-    <Typography variant='h3' textAlign={'center'} sx={{marginTop: '2rem', marginBottom: '2rem'}}>
-        Trending now
-    </Typography>
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button variant="outlined" sx={{ borderRadius: 5 }}>Category1</Button>
-        <Button variant="outlined" sx={{ mx: '1rem', borderRadius: 5 }}>Category2</Button>
-        <Button variant="outlined" sx={{ borderRadius: 5 }}>Category3</Button>
-    </Box>
-      <Box
-        sx={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
+    <Card
+      sx={{
+        maxWidth: 500,
+        borderRadius: 4,
+        boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.2)",
+        "&:hover": {
+          color: "blue",
+          cursor: "pointer",
+        },
+      }}
+      onClick={handleCardClick}
+    >
+      <CardMedia
+        component="img"
+        image={imageUrl || "/assets/item2.webp"}
+        title="Product Image"
+  
+      />
+      <CardContent
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          height: "150px",
+        }}
       >
-        {items.map((item, index) => (
-          <Box keyx={index}>
-            <Card sx={{ maxWidth: 345, mx: '1rem', borderRadius: 4, boxShadow: '1px 4px 8px rgba(0, 0, 0, 0.2)' }}>
-              <CardMedia
-                component="img"
-                image={item.image}
-                title="green iguana"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h6" component="div">
-                  {item.title}
-                </Typography>
-              </CardContent>
-              <Divider variant="middle" />
-              <Typography variant="h6" marginLeft="2rem" my="0.5rem">
-                {item.price}
-              </Typography>
-            </Card>
-          </Box>
-        ))}
-      </Box>
-    </>
+        <Typography gutterBottom variant="h6" sx={{ height: "2rem" }}>
+          {title} {gender}
+        </Typography>
+        <Divider variant="middle" />
+        <Typography variant="h6" marginLeft="2rem" my="0.5rem">
+          ${price}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 };
 

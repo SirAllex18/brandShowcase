@@ -10,10 +10,12 @@ import {
   Avatar,
   useMediaQuery,
   Divider,
+  Badge,
 } from "@mui/material";
 import DropdownMenu from "./dropdown";
 import SearchIcon from '@mui/icons-material/Search';
 import LanguageIcon from "@mui/icons-material/Language";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Menu, Close } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "state";
@@ -25,10 +27,11 @@ const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.auth.user);
+  const cart = useSelector((state) => state.auth.cart);  // Get cart from state
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
-  const fullName = "Alexandru";
+  const fullName = user ? `${user.firstName} ${user.lastName}` : "Guest";
 
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -154,6 +157,11 @@ const Navbar = () => {
                 <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
               </Select>
             </FormControl>
+            <IconButton onClick={() => navigate("/cart")}>
+              <Badge badgeContent={cart?.length || 0} color="secondary">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
             <LanguageIcon />
           </FlexBetween>
         ) : (

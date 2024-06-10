@@ -29,7 +29,6 @@ export const getMatchDay = async (req, res) => {
     const result = [];
 
     if (!flag) {
-      console.log("Hello");
 
       for (let i = start; i < selectedFixtures.length; i++) {
         result.push({
@@ -39,7 +38,7 @@ export const getMatchDay = async (req, res) => {
           awayTeam: selectedFixtures[i].teams.away,
           homeTeam: selectedFixtures[i].teams.home,
           score: selectedFixtures[i].score.fulltime,
-          date: selectedFixtures[i].fixture.date.split("T")[0],
+          date: selectedFixtures[i].fixture.date
         });
       }
     } else {

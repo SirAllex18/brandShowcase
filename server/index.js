@@ -12,7 +12,9 @@ import authRoutes from "./routes/auth.js";
 import newsRoutes from "./routes/newsInsert.js"
 import trophyRoutes from "./routes/trophies.js"
 import gameRoutes from "./routes/matchDay.js"
+import storeRoutes from "./routes/store.js"
 import { register } from "./controllers/auth.js"
+
 
 /*  CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -50,6 +52,7 @@ app.use("/auth", authRoutes);
 app.use("/files", newsRoutes);
 app.use("/trophies", trophyRoutes )
 app.use("/games", gameRoutes )
+app.use("/store", storeRoutes)
 
 const PORT = process.env.PORT || 6001;
 mongoose.connect(process.env.MONGO_URL)
