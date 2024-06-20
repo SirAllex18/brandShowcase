@@ -11,68 +11,70 @@ import {
   useMediaQuery,
   Divider,
   Badge,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
 } from "@mui/material";
-import DropdownMenu from "./dropdown";
-import SearchIcon from '@mui/icons-material/Search';
 import LanguageIcon from "@mui/icons-material/Language";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Menu, Close } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogout } from "state";
+import { setLogout, removeFromCart, clearCart } from "state";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
-import { styled, alpha } from '@mui/material/styles';
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
+  const [open, setOpen] = useState(false); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
-  const cart = useSelector((state) => state.auth.cart);  // Get cart from state
+  const cart = useSelector((state) => state.auth.cart);  
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
-  const fullName = user ? `${user.firstName} ${user.lastName}` : "Guest";
+  const fullName = user ? `${user.firstName} ${user.lastName}` : "Log In";
 
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  }));
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-  
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    width: '100%',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
+  const handleDialogOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setOpen(false);
+  };
+
+  const handleRemoveFromCart = (id, size) => {
+    dispatch(removeFromCart({ id, size }));
+  };
+
+  const total = cart?.reduce((sum, item) => sum + item.price * item.quantity, 0) || 0;
+
+  const handleBuyButton = async () => {
+    try {
+      console.log(typeof(cart[0].quantity))
+      const response = await fetch("http://localhost:3001/store/products/updateQuantity", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      },
-    },
-  }));
+        body: JSON.stringify(cart),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setOpen(false);
+        dispatch(clearCart());
+      } else {
+        console.log("Error:", data.message);
+      }
+    } catch (err) {
+      console.log("Error", err);
+    }
+  }
 
   return (
     <>
@@ -110,23 +112,7 @@ const Navbar = () => {
 
         <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center", pr: "5rem" }}>
           {isNonMobileScreens && (
-            <FlexBetween gap="1rem">
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ 'aria-label': 'search' }}
-                />
-              </Search>
-              <DropdownMenu />
-              <DropdownMenu />
-              <DropdownMenu />
-              <Typography>
-                Hello
-              </Typography>
-            </FlexBetween>
+            <Typography variant="h5"> FC Sovereign Blues</Typography>
           )}
         </Box>
 
@@ -151,13 +137,13 @@ const Navbar = () => {
                 }}
                 input={<InputBase />}
               >
-                <MenuItem value={fullName}>
-                  <Typography>{fullName}</Typography>
+                <MenuItem value={fullName} onClick={ () => fullName === "Log In" ? navigate("/login") : ""}>
+                  <Typography >{fullName}</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
               </Select>
             </FormControl>
-            <IconButton onClick={() => navigate("/cart")}>
+            <IconButton onClick={handleDialogOpen}>
               <Badge badgeContent={cart?.length || 0} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
@@ -218,8 +204,8 @@ const Navbar = () => {
                   }}
                   input={<InputBase />}
                 >
-                  <MenuItem value={fullName}>
-                    <Typography>{fullName}</Typography>
+                  <MenuItem value={fullName} onClick={ () => fullName === "Log In" ? navigate("/login") : ""}>
+                    <Typography >{fullName}</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => dispatch(setLogout())}>
                     Log Out
@@ -228,8 +214,42 @@ const Navbar = () => {
               </FormControl>
             </FlexBetween>
           </Box>
-        )}
+        )}  
       </FlexBetween>
+
+      <Dialog open={open} onClose={handleDialogClose}>
+        <DialogTitle>Cosul tau</DialogTitle>
+        <DialogContent>
+          {cart?.length ? (
+            <>
+              {cart.map((item, index) => (
+                <Box key={index} display="flex" alignItems="center" mb={2}>
+                  <img src={item.imageUrl} alt={item.title} style={{ width: 200, height: 200, marginRight: 10 }} />
+                  <Box flexGrow={1}>
+                    <Typography variant="h3">{item.title}</Typography>
+                    <Typography variant="h4" fontWeight="bold" marginTop="1rem">${item.price}</Typography>
+                    <Typography variant="h4">Quantity: {item.quantity}</Typography>
+                    <Box display="flex" justifyContent="right">
+                      <IconButton onClick={() => handleRemoveFromCart(item.id, item.size)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  </Box>
+                </Box>
+              ))}
+              <Typography variant="h4" align="right">Total: ${total.toFixed(2)}</Typography>
+            </>
+          ) : (
+            <DialogContentText>Cosul tau este gol</DialogContentText>
+          )}
+        </DialogContent>
+        <DialogActions>
+        <Button onClick={handleDialogClose}>Close</Button>
+          {cart?.length > 0 && (
+            <Button onClick={handleBuyButton}>Cumpara</Button>
+          )}
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

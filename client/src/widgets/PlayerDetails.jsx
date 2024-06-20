@@ -1,23 +1,76 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "../customCSS/CardSlider.css";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Box,
+  Grid
+} from "@mui/material";
+import FlexBetween from "components/FlexBetween";
+import { useEffect, useState } from "react";
 
-const PlayerCard = () => {
+const PlayerCard = ({ position }) => {
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    const getPlayersByPosition = async (position) => {
+      const response = await fetch(
+        "http://localhost:3001/players/playerByPosition",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ position }),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      setPlayers(data);
+    };
+    getPlayersByPosition(position);
+  }, []);
 
   return (
-    <>
-      <div class="container">
-        <div class="card__container">
-          <article class="card__article">
-            <img src="assets/logo.jpg" alt="" class="card__img" />
-            <div class="card__data">
-              <span class="card__description">Player 1 Name</span>
-              <h2 class="card__title">Goluri marcate: 20</h2>
-            </div>
-          </article>
-        </div>
-      </div>
-    </>
+    <Box sx={{ flexGrow: 1, marginLeft: "1rem", marginRigth: "1rem", marginBottom: "1rem" }}>
+      <Grid container spacing={5}>
+        {players.map((item, index) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+            <Card sx={{ maxWidth: 345, borderRadius: 5 }}>
+              <CardMedia
+                component="img"
+                alt="player image"
+                image="/assets/player.jpg"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h3" component="div">
+                  {item.name}
+                </Typography>
+                <Typography variant="h3">
+                  {item.kitNumber}
+                </Typography>
+                <FlexBetween marginTop="1rem">
+                <Typography variant="h5">
+                  Varsta {item.age}
+                </Typography>
+                <Typography variant="h5">
+                    Pozitie: {item.position}
+                  </Typography>
+                </FlexBetween>
+                <FlexBetween>
+                  <Typography variant="h5" >
+                    Meciuri jucate: {item.matchesPlayed}
+                  </Typography>
+                  <Typography variant="h5">
+                    Goluri inscrise: {item.goalsScored}
+                  </Typography>
+                </FlexBetween>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 

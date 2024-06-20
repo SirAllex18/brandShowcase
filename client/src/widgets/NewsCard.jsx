@@ -18,6 +18,7 @@ const NewsCard = ({ id, title, image, preview, content }) => {
         height: "100%",
         display: "flex",
         flexDirection: "column",
+        
         "&:hover": { cursor: "pointer" },
       }}
       onClick={handleCardClick}

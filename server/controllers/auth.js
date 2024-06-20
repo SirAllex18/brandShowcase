@@ -47,3 +47,20 @@ export const login = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 }
+
+export const deleteUser = async (req,res) => {
+  try{
+    const {id, email} = req.body;
+
+    const user = await User.findOne({ _id: id })
+    if(user){
+      await User.deleteOne({ _id: id, email: email });
+    }else{
+      throw new Error("User not found in the database")
+    }
+
+    return res.status(200).json({ msg: "User succesfully deleted from the database!"})
+  }catch(err){
+    console.log(err)
+  }
+}

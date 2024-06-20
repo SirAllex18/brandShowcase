@@ -17,6 +17,7 @@ import { useState } from "react";
 const ProductPage = () => {
   const location = useLocation();
   const {
+    id,
     title,
     description,
     gender,
@@ -28,12 +29,15 @@ const ProductPage = () => {
   } = location.state;
   const dispatch = useDispatch();
   const [selectedSize, setSelectedSize] = useState(null);
-  const [quantity, setQuantity] = useState();
+  const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.auth.user);
+  const [availableQuantity, setAvailableQuantity] = useState(null);
+ 
   const handleAddToCart = () => {
-    if(user){
+    if (user) {
       if (selectedSize) {
         const product = {
+          id,
           title,
           description,
           gender,
@@ -42,23 +46,36 @@ const ProductPage = () => {
           price,
           imageUrl,
           subCategory,
+          quantity,
         };
         dispatch(addToCart(product));
       } else {
         alert("Please select a size");
       }
-    }else {
-      alert("Must be login ")
+    } else {
+      alert("You must be logged in to add items to the cart");
     }
   };
+
   const handleQuantityChange = (event) => {
-    setQuantity(event.target.value);
-  };
-  const handleSizeClick = (size) => {
-    if (selectedSize === size) {
-      setSelectedSize(null);
+    const value = parseInt(event.target.value, 10);
+    if (value > availableQuantity) {
+      setQuantity(availableQuantity);
+      alert(`Only ${availableQuantity} items available`);
     } else {
-      setSelectedSize(size);
+      setQuantity(value);
+    }
+  };
+
+  const handleSizeClick = (sizeObj) => {
+    if (selectedSize === sizeObj.size) {
+      setSelectedSize(null);
+      setAvailableQuantity(null);
+      setQuantity(1);
+    } else {
+      setSelectedSize(sizeObj.size);
+      setAvailableQuantity(sizeObj.quantity);
+      setQuantity(1);
     }
   };
 
@@ -71,6 +88,7 @@ const ProductPage = () => {
         <Box
           component="img"
           sx={{
+            marginTop: "3rem",
             width: "50rem",
             height: "65rem",
           }}
@@ -122,23 +140,27 @@ const ProductPage = () => {
                       borderColor:
                         selectedSize === item.size ? "blue" : "inherit",
                     }}
-                    onClick={() => handleSizeClick(item.size)}
+                    onClick={() => handleSizeClick(item)}
                     disabled={item.quantity === 0}
                   >
                     {item.size}
                   </Button>
                 ))}
               </Box>
-              <TextField
-                id="filled-number"
-                label="Quantity"
-                type="number"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                sx={{marginTop: '2rem', width: '8rem'}}
-                onChange={handleQuantityChange}
-              />
+              {availableQuantity !== null && (
+                <TextField
+                  id="filled-number"
+                  label="Quantity"
+                  type="number"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  sx={{ marginTop: "2rem", width: "8rem" }}
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                  inputProps={{ min: 1, max: availableQuantity }}
+                />
+              )}
             </CardContent>
             <CardActions sx={{ display: "flex", justifyContent: "center" }}>
               <Button

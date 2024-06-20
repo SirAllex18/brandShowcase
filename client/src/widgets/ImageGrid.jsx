@@ -63,7 +63,7 @@ const ImageGrid = () => {
                   position: "relative",
                   width: "350px",
                   height: "400px",
-                  backgroundImage: `url("/assets/logo.jpg")`, 
+                  backgroundImage: `url("/assets/itemShop2.jpg")`, 
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   display: "flex",
@@ -79,7 +79,7 @@ const ImageGrid = () => {
                   sx={{
                     position: "absolute",
                     bottom: 0,
-                    width: "60%",
+                    width: "100%",
                     bgcolor: "rgba(0, 0, 0, 0.5)",
                     color: "white",
                     textAlign: "center",
@@ -91,7 +91,7 @@ const ImageGrid = () => {
                   <Button
                     variant="outlined"
                     size="medium"
-                    sx={{ mt: 1, fontSize: "1.2rem" }}
+                    sx={{ mt: 1, fontSize: "1.2rem", color: "white"}}
                     onClick={() => handleButtonClick(item.subCategory )}
                   >
                     Shop now
@@ -117,7 +117,7 @@ const ImageGrid = () => {
                   position: "relative",
                   width: "350px",
                   height: "400px",
-                  backgroundImage: `url("/assets/logo.jpg")`,
+                  backgroundImage: `url("/assets/itemShop.jpg")`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   display: "flex",
@@ -144,7 +144,7 @@ const ImageGrid = () => {
                   <Button
                     variant="outlined"
                     size="medium"
-                    sx={{ mt: 1, color: "red", fontSize: "1.2rem" }}
+                    sx={{ mt: 1, color: "lightblue", fontSize: "1.2rem" }}
                     onClick={() => handleButtonClick(item.subCategory )}
                   >
                     Shop now

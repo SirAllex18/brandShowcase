@@ -8,7 +8,7 @@ import {
   Slider
 } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
-import InputSlider from "./Slider"; // Adjust the import path as necessary
+import InputSlider from "./Slider";
 
 const Trophies = ({ image, trophies, selectedYear, onYearChange }) => {
   const trophyLabels = [
@@ -39,10 +39,6 @@ const Trophies = ({ image, trophies, selectedYear, onYearChange }) => {
           sx={{
             width: "60%",
             height: "auto",
-            transition: "transform 0.3s ease-in-out",
-            "&:hover": {
-              transform: "scale(1.01)",
-            },
           }}
         />
         <CardContent sx={{ width: "40%", display: 'flex', flexDirection: 'column' }}>
@@ -53,12 +49,12 @@ const Trophies = ({ image, trophies, selectedYear, onYearChange }) => {
                   <CardMedia
                     component="img"
                     image="/assets/trophy.jpg"
-                    sx={{ width: '20%', height: 'auto' }}
+                    sx={{ width: '30%', height: 'auto' }}
                   />
-                  <Typography sx={{ marginLeft: 2 }}>{trophies[trophy.key] || 0}</Typography>
+                  <Typography variant="h5" sx={{ marginLeft: 2 }}>{trophies[trophy.key] || 0}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                  <Typography variant="caption" sx={{ marginTop: 1 }}>{trophy.label}</Typography>
+                  <Typography variant="h5" sx={{ marginTop: 1 }}>{trophy.label}</Typography>
                   <Slider
                     size="small"
                     value={trophies[trophy.key] || 0}

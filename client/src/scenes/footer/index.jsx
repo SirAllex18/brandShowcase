@@ -8,6 +8,7 @@ import {
   Avatar,
   Button,
   Alert,
+  Snackbar
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -39,7 +40,9 @@ const sponsors = [
 const Footer = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [alertSuccess, setAlertSuccess] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("success");
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -47,6 +50,12 @@ const Footer = () => {
 
   const handleSubscribe = async () => {
     try {
+      if (!email) {
+        setAlertMessage("Introduce-ti adresa de email!");
+        setAlertSeverity("warning");
+        setAlertOpen(true);
+        return;
+      }
       const response = await fetch("http://localhost:3001/auth/email", {
         method: "POST",
         headers: {
@@ -56,14 +65,19 @@ const Footer = () => {
       });
       if (response.ok) {
         setEmail("");
-        setAlertSuccess(true)
-        setTimeout(() => setAlertSuccess(false), 3000);
-        console.log("Subscribtion succesful!");
+        setAlertMessage("Subscribtion successful!");
+        setAlertSeverity("success");
+        setAlertOpen(true);
+        setTimeout(() => setAlertOpen(false), 3000);
       } else {
-        console.error("Failed subscribe email:", email);
+        setAlertMessage("Failed to subscribe email!");
+        setAlertSeverity("error");
+        setAlertOpen(true);
       }
     } catch (err) {
-      console.error("Error submitting email:", err);
+      setAlertMessage("Error submitting email!");
+      setAlertSeverity("error");
+      setAlertOpen(true);
     }
   };
 
@@ -79,14 +93,9 @@ const Footer = () => {
         }}
       >
         <Divider flexItem sx={{ marginBottom: "3rem" }} />
-        <Typography sx={{ marginBottom: "1.5rem" }}>
+        <Typography variant="h5" sx={{ marginBottom: "1.5rem" }}>
           Aboneaza-te la Newslatter-ul nostru pentru ultimele noutati!
         </Typography>
-        {alertSuccess && (
-          <Alert variant="filled" severity="success" sx={{ marginBottom: '1.5rem'}}>
-            Abonarea reusita!
-          </Alert>
-        )}
         <TextField
           id="outlined-basic"
           label="Email"
@@ -102,6 +111,16 @@ const Footer = () => {
         >
           Subscribe
         </Button>
+        <Snackbar
+        open={alertOpen}
+        autoHideDuration={3000}
+        onClose={() => setAlertOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity={alertSeverity} onClose={() => setAlertOpen(false)}>
+          {alertMessage}
+        </Alert>
+      </Snackbar>
         <Divider flexItem sx={{ marginTop: "3rem" }} />
       </Box>
       <Container sx={{ marginTop: "100px" }}>

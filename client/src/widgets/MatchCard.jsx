@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent, Box, Typography, Button } from "@mui/material";
 
-const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date }) => {
+const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date, showScore, probability }) => {
   return (
     <Card sx={{ margin: 2, borderRadius: "16px", width: "100%" }}>
       <CardContent>
@@ -10,25 +10,25 @@ const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date }) 
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            bgcolor: "#002F6C",
+            bgcolor: "#6CB4EE",
             color: "white",
             padding: "8px",
           }}
         >
-          <Typography variant="h6">{date}</Typography>
+          <Typography variant="h6">{date.split("T")[0]}</Typography>
         </Box>
         <Box sx={{ textAlign: "center", padding: "16px" }}>
           <img
             src={competitionLogo}
             alt="Competition Logo"
-            style={{ width: "40px" }}
+            style={{ width: "35px" }}
           />
           <Box
             sx={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              marginY: "8px",
+              marginY: "1.5rem",
             }}
           >
             <img
@@ -37,7 +37,7 @@ const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date }) 
               style={{ width: "70px", marginRight: "2rem" }}
             />
             <Typography variant="h3">
-              {score.home} - {score.away}{" "}
+              {showScore ? `${score.home} - ${score.away}` : date.split('T')[1].split(':00+')[0]}
             </Typography>
             <img
               src={awayTeam.logo}
@@ -49,6 +49,12 @@ const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date }) 
             {homeTeam.name} vs {awayTeam.name}
           </Typography>
           <Typography variant="body2">{venue}</Typography>
+          {probability !== null && 
+          <Box>
+              <Typography variant="h5"> Win probability: {probability} </Typography>
+              <Typography variant="h6"> Provided by AI</Typography>
+          </Box>
+        }
         </Box>
       </CardContent>
     </Card>

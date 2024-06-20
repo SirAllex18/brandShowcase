@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Container, Grid, Divider, Box, Typography } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Divider,
+  Box,
+  Typography,
+  Button,
+} from "@mui/material";
+import { setMatches } from "../../state/matchSlice.js";
 import NavBar from "scenes/navBar";
 import MainCard from "widgets/MainNews";
 import NewsCard from "widgets/NewsCard";
@@ -8,9 +16,11 @@ import PlayersSlider from "widgets/Players";
 import Trophies from "widgets/Trophies";
 import Footer from "scenes/footer";
 import NewsDialogue from "widgets/NewsDialogue";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const dispatch = useDispatch();
   const partners = [
     { name: "Nike", image: "/assets/audi.png", url: "https://www.audi.com" },
     {
@@ -20,39 +30,38 @@ const HomePage = () => {
     },
     { name: "HP", image: "/assets/hp.png", url: "https://www.hp.com" },
   ];
-
+ 
   const [matchInfo, setMatchInfo] = useState([]);
   const [newsItems, setNewsItems] = useState([]);
-  const [data, setData] = useState(null);
+  const [data, setTrophies] = useState(null);
   const [selectedYear, setSelectedYear] = useState(1990);
   const user = useSelector((state) => state.auth.user);
+  
   const addNewsItem = (newItem) => {
     setNewsItems((prevItems) => [newItem, ...prevItems]);
   };
-
+  const navigate = useNavigate();
   const handleYearChange = (year) => {
     setSelectedYear(year);
   };
 
   useEffect(() => {
-    const getMatch = async () => {
+    const fetchInitialMatches = async () => {
       try {
-        const flag = matchInfo.length? true : false;
-        const url = `http://localhost:3001/games/getMatchDay/${flag}`;
-     
-        const response = await fetch(url);
-        const data = await response.json();
-        setMatchInfo(data);
-      
-      } catch (err) {
-        console.log(err);
+        const response = await fetch("http://localhost:3001/games/getMatchDay");
+        const initialData = await response.json();
+        setMatchInfo(initialData);
+        dispatch(setMatches(initialData));
+      } catch (error) {
+        console.error("Failed to fetch initial matches:", error);
       }
     };
-    getMatch();
+
+    fetchInitialMatches();
   }, []);
 
   useEffect(() => {
-    const fetchNewsItems = async () => {
+    const getNewsItems = async () => {
       try {
         const response = await fetch("http://localhost:3001/files/getAllNews");
         const data = await response.json();
@@ -62,11 +71,11 @@ const HomePage = () => {
       }
     };
 
-    fetchNewsItems();
+    getNewsItems();
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getTrophies = async () => {
       try {
         const response = await fetch(
           "http://localhost:3001/trophies/getTrophies"
@@ -75,13 +84,13 @@ const HomePage = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        setData(data);
+        setTrophies(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData();
+    getTrophies();
   }, []);
 
   if (!data) {
@@ -91,7 +100,7 @@ const HomePage = () => {
   const selectedYearData = data[0]?.records
     ? data[0].records.find((record) => record.year === selectedYear) || {}
     : {};
-  console.log(matchInfo)
+  console.log(matchInfo);
   return (
     <>
       <Box>
@@ -118,7 +127,7 @@ const HomePage = () => {
               ))}
             </Grid>
           </Grid>
-          {user?.role === 'admin' && (
+          {user?.role === "admin" && (
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <NewsDialogue addNewsItem={addNewsItem} />
             </Box>
@@ -174,9 +183,7 @@ const HomePage = () => {
             {Array.isArray(matchInfo) ? (
               matchInfo.map((match, index) => (
                 <Grid item xs={12} sm={6} md={index === 1 ? 6 : 3} key={index}>
-                  <MatchCard 
-                  {...match}
-                  showScore = { index === 0} />
+                  <MatchCard {...match} showScore={index === 0} />
                 </Grid>
               ))
             ) : (
@@ -219,11 +226,17 @@ const HomePage = () => {
           </Box>
           <Box>
             <Trophies
-              image="/assets/NewsPicture.webp"
+              image="/assets/sliderPhoto.jpg"
               trophies={selectedYearData.trophies || {}}
               selectedYear={selectedYear}
               onYearChange={handleYearChange}
             />
+            <Box display="flex" justifyContent="center" marginTop="2rem">
+              <Button variant="outlined" onClick={() => navigate("/history")}>
+                {" "}
+                Descopera{" "}
+              </Button>
+            </Box>
           </Box>
         </Container>
         <Footer />

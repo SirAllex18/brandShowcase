@@ -8,9 +8,9 @@ import {
 
 } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router
+import { useNavigate } from 'react-router-dom';
 
-const DropdownMenu = () => {
+const DropdownMenu = ({category}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const DropdownMenu = () => {
 
   const handleMenuItemClick = (pageURL) => {
     handleClose();
-    navigate(pageURL); // Navigate to the specific page
+    navigate(pageURL);
   };
 
   return (
@@ -35,7 +35,7 @@ const DropdownMenu = () => {
         onClick={handleClick}
         endIcon={<ArrowDropDownIcon />}
       >
-        Fashion
+        {category}
       </Button>
       <Menu
         anchorEl={anchorEl}
@@ -43,7 +43,7 @@ const DropdownMenu = () => {
         onClose={handleClose}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
-          sx: { display: 'flex', flexDirection: 'row' }, // Make the menu items appear in a row
+          sx: { display: 'flex', flexDirection: 'row' },
         }}
         Paper={{
           sx: {

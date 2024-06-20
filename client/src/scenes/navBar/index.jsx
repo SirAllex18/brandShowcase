@@ -11,6 +11,11 @@ import {
   useMediaQuery,
   Divider,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -20,9 +25,11 @@ import { setLogout } from "state";
 import FlexBetween from "components/FlexBetween";
 import PersonOutlineSharpIcon from "@mui/icons-material/PersonOutlineSharp";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
+  const [openAccountDialog, setOpenAccountDialog] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
@@ -37,14 +44,62 @@ const Navbar = () => {
   };
 
   const handleSelectClick = () => {
-    navigate("/login")
+    navigate("/login");
   };
+
+  const handleLogout = () => {
+    dispatch(setLogout());
+    setOpenAccountDialog(false);
+  };
+
+  const handleDialogClose = () => {
+    setOpenAccountDialog(false);
+  };
+
+  const calculateAccountAge = (createdAt) => {
+    const createdDate = new Date(createdAt);
+    const today = new Date();
+    const differenceInTime = today - createdDate;
+    const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+    return differenceInDays;
+  };
+
+  const accountAge = user ? calculateAccountAge(user.createdAt) : null;
+
+  const handleDeleteAccount = async () => {
+    try{
+      const idUser = user._id;
+      const emailUser = user.email;
+      const deleteUser = await fetch("http://localhost:3001/auth/deleteUser", {
+        method: "POST",
+        headers: {
+          "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+          id: idUser,
+          email: emailUser
+        })
+      })
+      if(deleteUser.status === 200){
+        console.log("User succesfully deleted!")
+        dispatch(setLogout())
+        setOpenAccountDialog(false)
+      }else{
+        alert("Error! Try again")
+      }
+    
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+
   return (
     <FlexBetween padding="0.75rem 2%" backgroundColor="#F3F5F8">
       <FlexBetween gap="1.75rem">
         <Avatar
           src={`${process.env.PUBLIC_URL}/assets/logo.jpg`}
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("/")}
           sx={{
             "&:hover": {
               color: "blue",
@@ -102,6 +157,7 @@ const Navbar = () => {
                   cursor: "pointer",
                 },
               }}
+              onClick={() => navigate("/matches")}
             >
               Evenimente
             </Typography>
@@ -113,17 +169,7 @@ const Navbar = () => {
                   cursor: "pointer",
                 },
               }}
-            >
-              Bilete
-            </Typography>
-            <Typography
-              fontSize="clamp(0.75rem, 1rem, 1.5rem)"
-              sx={{
-                "&:hover": {
-                  color: "blue",
-                  cursor: "pointer",
-                },
-              }}
+              onClick={() => navigate("/history")}
             >
               Istorie
             </Typography>
@@ -156,13 +202,22 @@ const Navbar = () => {
               <Typography fontSize="0.8rem">Sign In</Typography>
             </Button>
           ) : (
-            <Box sx={{marginRight: "1rem", display: 'flex', flexDirection: "column", justifyContent: 'center', alignContent: 'center'}}>
-              <Typography>Welcome, {fullName}! </Typography>
+            <Box
+              sx={{
+                marginRight: "1rem",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignContent: "center",
+              }}
+            >
+              <Typography>Welcome, {fullName} </Typography>
               <Button
                 size="small"
                 variant="outlined"
                 startIcon={<ManageAccountsIcon />}
                 sx={{ borderRadius: 3 }}
+                onClick={() => setOpenAccountDialog(true)}
               >
                 <Typography fontSize="0.7rem">Account</Typography>
               </Button>
@@ -210,7 +265,7 @@ const Navbar = () => {
           >
             <FormControl variant="standard" value={fullName}>
               <Select
-                value="{fullName}"
+                value={fullName}
                 sx={{
                   width: "150px",
                   borderRadius: "0.25rem",
@@ -225,8 +280,8 @@ const Navbar = () => {
                 }}
                 input={<InputBase />}
               >
-                <MenuItem value="">
-                  <Typography>""</Typography>
+                <MenuItem value={fullName}>
+                  <Typography>{fullName}</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => dispatch(setLogout())}>
                   Log Out
@@ -236,6 +291,38 @@ const Navbar = () => {
           </FlexBetween>
         </Box>
       )}
+
+      {/* ACCOUNT DIALOG */}
+      <Dialog
+        open={openAccountDialog}
+        onClose={() => setOpenAccountDialog(false)}
+      >
+        <FlexBetween>
+          <DialogTitle>Account Details</DialogTitle>
+          <CloseIcon
+            onClick={handleDialogClose}
+            sx={{
+              marginRight: "1rem",
+              "&:hover": {
+                color: "blue",
+                cursor: "pointer",
+              },
+            }}
+          />
+        </FlexBetween>
+        <DialogContent>
+          <DialogContentText>
+            Salutare {fullName}, esti un membru al clubului de {accountAge}{" "}
+            zile, iti multumim!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteAccount}> Stergere cont </Button>
+          <Button onClick={handleLogout} color="primary" variant="contained">
+            Logout
+          </Button>
+        </DialogActions>
+      </Dialog>
     </FlexBetween>
   );
 };

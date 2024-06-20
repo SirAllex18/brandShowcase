@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const ShopPage = () => {
   const [productsButtons, setNewButtons] = useState([]);
   const [products, setNewProducts] = useState([]);
-  const [categorySelected, setSelectedCategory] = useState()
+  const [categorySelected, setSelectedCategory] = useState();
   const defaultCategoryId = "6664c24026942ca480044689";
   const navigateTo = useNavigate();
 
@@ -35,7 +35,7 @@ const ShopPage = () => {
       }
       const data = await response.json();
       setNewProducts(data.slice(0, 4));
-      setSelectedCategory(categoryId)
+      setSelectedCategory(categoryId);
     } catch (err) {
       console.log(err);
     }
@@ -80,15 +80,24 @@ const ShopPage = () => {
                 materials={item.materials}
                 sizes={item.sizes}
                 price={item.price}
-                imageUrl="/assets/item1.webp"
-                id= {item._id}
-                subCategory= {item.subCategory}
+                imageUrl={item.imageUrl}
+                id={item._id}
+                subCategory={item.subCategory}
               />
             </Grid>
           ))}
         </Grid>
-        <Box sx={{display: 'flex', justifyContent:"center", marginTop: '1rem'}}>
-          <Button variant="contained" onClick={() => navigateTo("/store/Category", { state : { categorySelected } })}>Show more</Button>
+        <Box
+          sx={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
+        >
+          <Button
+            variant="contained"
+            onClick={() =>
+              navigateTo("/store/Category", { state: { categorySelected } })
+            }
+          >
+            Show more
+          </Button>
         </Box>
       </Container>
       <ImageGrid />

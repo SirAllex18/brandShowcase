@@ -1,30 +1,44 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    user: null,
-    token: null,
-    cart: [],
+  user: null,
+  cart: [],
 };
 
-export const authSlice = createSlice({
-    name: "auth",
-    initialState,
-    reducers: {
-        setLogin: (state, action) => {
-            state.user = action.payload.user;
-            state.token = action.payload.token;
-            state.cart = [];
-        },
-        setLogout: (state) => {
-            state.user = null;
-            state.token = null;
-            state.cart = [];
-        },
-        addToCart: (state, action) => {
-            state.cart.push(action.payload)
-        }
-    }
-})
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    setLogin: (state, action) => {
+      state.user = action.payload.user;
+    },
+    setLogout: (state) => {
+      state.user = null;
+      state.cart = [];
+    },
+    addToCart: (state, action) => {
+      const item = action.payload;
+      const existingItem = state.cart.find(
+        (i) => i.id === item.id && i.size === item.size
+      );
 
-export const { setLogin, setLogout, addToCart } = authSlice.actions;
+      if (existingItem) {
+        existingItem.quantity += item.quantity;
+      } else {
+        state.cart.push(item);
+      }
+    },
+    removeFromCart: (state, action) => {
+      const { id, size } = action.payload;
+      state.cart = state.cart.filter(
+        (item) => !(item.id === id && item.size === size)
+      );
+    },
+    clearCart: (state) => {
+      state.cart = [];
+    },
+  },
+});
+
+export const { setLogin, setLogout, addToCart, removeFromCart, clearCart } = authSlice.actions;
 export default authSlice.reducer;
