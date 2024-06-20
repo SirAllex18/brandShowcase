@@ -6,7 +6,8 @@ import NewsPage from "scenes/newsPage";
 import CategoryPage from "scenes/shopPage/CategoryPage";
 import ShopPage from "scenes/shopPage/Store"
 import ProductPage from "scenes/shopPage/ProductPage";
-import { useMemo } from "react";
+import HistoryPage from "scenes/historyPage";
+import MatchPage from "scenes/eventsPage";
 
 import { createTheme } from "@mui/material/styles"
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -28,6 +29,8 @@ function App() {
           <Route path="/store" element={<ShopPage /> } />
           <Route path="/store/:productId" element={<ProductPage /> } />
           <Route path="/store/category" element={<CategoryPage />} />
+          <Route path="/history" element={ <HistoryPage />} />
+          <Route path="/matches" element={ <MatchPage />} />
         </Routes>
         </ThemeProvider>
       </BrowserRouter>

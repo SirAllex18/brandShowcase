@@ -4,6 +4,6 @@ import express from "express";
 
 const router = express.Router()
 
-router.get("/getMatchDay/:flag", getMatchDay )
+router.get("/getMatchDay", getMatchDay )
 
 export default router;

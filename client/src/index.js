@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import authReducer from "./state/index";
-import newsReducer from "./state/newsSlice";
+import matchesReducer from "./state/matchSlice";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import {
@@ -21,7 +21,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  news: newsReducer
+  match: matchesReducer
 })
 
 const persistConfig = { key: "root", storage, version: 1 };
