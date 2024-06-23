@@ -180,15 +180,13 @@ const HomePage = () => {
         </Box>
         <Container maxWidth="xl">
           <Grid container spacing={2} justifyContent="center">
-            {Array.isArray(matchInfo) ? (
+            {
               matchInfo.map((match, index) => (
                 <Grid item xs={12} sm={6} md={index === 1 ? 6 : 3} key={index}>
                   <MatchCard {...match} showScore={index === 0} />
                 </Grid>
               ))
-            ) : (
-              <Typography>Error: matchInfo is not an array</Typography>
-            )}
+          }
           </Grid>
         </Container>
         <Box

@@ -80,7 +80,7 @@ export const getMatchDay = async (req, res) => {
         {
           role: "system",
           content:
-            "You are a helpful assistant specialized in football statistics and predictions.",
+            "You are a helpful assistant specialized in football statistics and predictions. Provide only the win percentage in the answer",
         },
         {
           role: "user",

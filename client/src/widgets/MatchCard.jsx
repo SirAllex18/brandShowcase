@@ -3,7 +3,7 @@ import { Card, CardContent, Box, Typography, Button } from "@mui/material";
 
 const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date, showScore, probability }) => {
   return (
-    <Card sx={{ margin: 2, borderRadius: "16px", width: "100%" }}>
+    <Card sx={{ borderRadius: "16px", width: "100%" }}>
       <CardContent>
         <Box
           sx={{
@@ -18,11 +18,14 @@ const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date, sh
           <Typography variant="h6">{date.split("T")[0]}</Typography>
         </Box>
         <Box sx={{ textAlign: "center", padding: "16px" }}>
-          <img
-            src={competitionLogo}
-            alt="Competition Logo"
-            style={{ width: "35px" }}
-          />
+          <Box display="flex" justifyContent="left">
+            <img
+              src={competitionLogo}
+              alt="Competition Logo"
+              style={{ width: "35px" }}
+            />
+          </Box>
+      
           <Box
             sx={{
               display: "flex",
