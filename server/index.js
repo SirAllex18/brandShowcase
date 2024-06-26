@@ -15,6 +15,7 @@ import gameRoutes from "./routes/matchDay.js"
 import storeRoutes from "./routes/store.js"
 import playersRoutes from "./routes/players.js"
 import { FileInsert } from "./controllers/NewsInsert.js";
+import { register } from "./controllers/auth.js";
 import "./cronJob.js";
 
 
@@ -32,6 +33,8 @@ dotevn.config();
  app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}));
  app.use(cors())
  app.use("/assets", express.static(path.join(__dirname, '../../client/public/assets')));
+
+ app.post("/auth/register", register);
 
  const publicServerAssetsPath = path.join(__dirname, 'public/server-assets');
  app.use("/server-assets", express.static(publicServerAssetsPath));

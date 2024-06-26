@@ -112,19 +112,22 @@ export const getUniqueSubCategories = async (req, res) => {
 
 export const updateProductSizeQuantity = async (req, res) => {
   try {
-    const { productId, size, quantity } = req.body;
+    const { cartItems } = req.body;
 
-    const product = await Product.findOneAndUpdate(
-      { _id: productId, "sizes.size": size },
-      { $inc: { "sizes.$.quantity": -quantity } },
-      { new: true }
-    );
+    for (const item of cartItems) {
+      const { productId, size, quantity } = item;
+      const product = await Product.findOneAndUpdate(
+        { _id: productId, "sizes.size": size },
+        { $inc: { "sizes.$.quantity": -quantity } },
+        { new: true }
+      );
 
-    if (!product) {
-      return res.status(404).json({ message: "Product or size not found" });
+      if (!product) {
+        return res.status(404).json({ message: `Product or size not found for productId: ${productId} and size: ${size}` });
+      }
     }
 
-    res.status(200).json({ message: "Product size quantity updated successfully" });
+    res.status(200).json({ message: "Product size quantities updated successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
