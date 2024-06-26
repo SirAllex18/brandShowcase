@@ -131,7 +131,7 @@ const HistoryPage = () => {
           display: "flex",
           justifyContent: "left",
           alignItems: "end",
-          marginTop: { xs: "4rem", md: "2rem", lg: "2rem"},
+          marginTop: { xs: "8rem", md: "5rem", lg: "5rem"},
         }}
       >
         <Container maxWidth="xl">
@@ -141,7 +141,7 @@ const HistoryPage = () => {
         </Container>
       </Box>
       <Container>
-        <Box marginTop="5rem">
+        <Box marginTop="2rem">
           <Typography variant="h4" textAlign="left">
             FC Sovereign Blues este unul dintre cele mai de{" "}
           </Typography>
@@ -157,9 +157,9 @@ const HistoryPage = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          marginTop: "10rem",
+          marginTop: "3rem",
           backgroundColor: "#6CB4EE",
-          height: "40%",
+          height: {sm: "45%", md: "65%", lg: "60%"},
         }}
       >
         <Box
@@ -239,7 +239,7 @@ const HistoryPage = () => {
           alignItems: "center",
           marginTop: "10rem",
           backgroundColor: "#6CB4EE",
-          height: "40%",
+          height: {sm: "45%", md: "65%", lg: "60%"},
         }}
       >
         <Box
@@ -320,7 +320,7 @@ const HistoryPage = () => {
           alignItems: "center",
           marginTop: "10rem",
           backgroundColor: "#6CB4EE",
-          height: "40%",
+          height: {sm: "45%", md: "65%", lg: "60%"},
         }}
       >
         <Box
@@ -403,7 +403,7 @@ const HistoryPage = () => {
           alignItems: "center",
           marginTop: "10rem",
           backgroundColor: "#6CB4EE",
-          height: "40%",
+          height: {sm: "45%", md: "65%", lg: "60%"},
         }}
       >
         <Box
