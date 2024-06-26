@@ -24,10 +24,6 @@ const Item = ({
       state: { id, title, description, gender, materials, sizes, price, imageUrl, subCategory },
     });
   };
-  let heightCategory = "350px"
-  if(flag === true){
-    heightCategory = "700px"
-  }
   return (
     <Card
       sx={{
@@ -50,7 +46,12 @@ const Item = ({
         title="Product Image"
         sx={{
           objectFit: "cover",
-          height: heightCategory
+          height: {
+            xs: flag ? "350px" : "400px",
+            sm: flag ? "400px" : "300px",
+            md: flag ? "400px" : "350px",
+            lg: flag ? "700px" : "300px"
+          },
         }}
       />
       <CardContent

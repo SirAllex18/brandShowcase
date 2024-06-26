@@ -1,7 +1,7 @@
 import Navbar from "scenes/navBar";
-import Trophies from "widgets/Trophies";
 import { Container, Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
+import Footer from "scenes/footer";
 
 const HistoryPage = () => {
   const [data, setTrophies] = useState([]);
@@ -73,6 +73,7 @@ const HistoryPage = () => {
 
     fetchTrophies();
   }, []);
+
   const getTrophiesByCompetition = async (year, competition) => {
     try {
       const response = await fetch(
@@ -130,6 +131,7 @@ const HistoryPage = () => {
           display: "flex",
           justifyContent: "left",
           alignItems: "end",
+          marginTop: { xs: "4rem", md: "2rem", lg: "2rem"},
         }}
       >
         <Container maxWidth="xl">
@@ -144,7 +146,6 @@ const HistoryPage = () => {
             FC Sovereign Blues este unul dintre cele mai de{" "}
           </Typography>
           <Typography variant="h4" textAlign="left">
-            {" "}
             succes cluburi de fotbal din lume, castigand un total de{" "}
             {totalTrophies} trofee.{" "}
           </Typography>
@@ -161,16 +162,20 @@ const HistoryPage = () => {
           height: "40%",
         }}
       >
-        <img
+        <Box
+          component="img"
           src="/assets/internalTrophy.webp"
-          width="500px"
-          height="auto"
           alt="alternative text"
-        ></img>
-        <Box sx={{ width: "20%" }}>
+          sx={{
+            width: { xs: "250px", sm: "350px", md: "500px" },
+            height: "auto",
+            objectFit: "fill",
+          }}
+        />
+        <Box sx={{  width: { xs: "60%", sm: "30%", md: "20%" } }}>
           <Typography
             variant="h3"
-            marginLeft="2rem"
+            marginLeft="3rem"
             sx={{
               display: "flex",
               alignItems: "start",
@@ -194,13 +199,12 @@ const HistoryPage = () => {
           justifyContent: "center",
           alignItems: "center",
           marginTop: "10rem",
-          
         }}
       >
-        <Box sx={{ width: "20%" }}>
+        <Box sx={{  width: { xs: "60%", sm: "30%", md: "20%" } }}>
           <Typography
             variant="h3"
-            marginRight="2rem"
+            marginRight="4rem"
             sx={{
               display: "flex",
               alignItems: "start",
@@ -217,12 +221,16 @@ const HistoryPage = () => {
             ravnita competitie din lume!
           </Typography>
         </Box>
-        <img
+        <Box
+          component="img"
           src="/assets/elPresidente.webp"
-          width="500px"
-          height="auto"
           alt="alternative text"
-        ></img>
+          sx={{
+            width: { xs: "250px", sm: "350px", md: "500px" },
+            height: "auto",
+            objectFit: "fill",
+          }}
+        />
       </Box>
       <Box
         sx={{
@@ -234,13 +242,17 @@ const HistoryPage = () => {
           height: "40%",
         }}
       >
-        <img
+        <Box
+          component="img"
           src="/assets/footballPitch.webp"
-          width="500px"
-          height="auto"
           alt="alternative text"
-        ></img>
-        <Box sx={{ width: "20%" }}>
+          sx={{
+            width: { xs: "250px", sm: "350px", md: "500px" },
+            height: "auto",
+            objectFit: "fill",
+          }}
+        />
+        <Box sx={{ width: { xs: "60%", sm: "30%", md: "20%" } }}>
           <Typography
             variant="h3"
             marginLeft="2rem"
@@ -269,7 +281,7 @@ const HistoryPage = () => {
           marginTop: "10rem",
         }}
       >
-        <Box sx={{ width: "20%" }}>
+        <Box sx={{  width: { xs: "60%", sm: "30%", md: "20%" } }}>
           <Typography
             variant="h3"
             marginRight="2rem"
@@ -290,12 +302,16 @@ const HistoryPage = () => {
             {supercupe.trophies}
           </Typography>
         </Box>
-        <img
+        <Box
+          component="img"
           src="/assets/supercupe.webp"
-          width="500px"
-          height="auto"
           alt="alternative text"
-        ></img>
+          sx={{
+            width: { xs: "250px", sm: "350px", md: "500px" },
+            height: "auto",
+            objectFit: "fill",
+          }}
+        />
       </Box>
       <Box
         sx={{
@@ -307,16 +323,20 @@ const HistoryPage = () => {
           height: "40%",
         }}
       >
-        <img
+        <Box
+          component="img"
           src="/assets/conference.webp"
-          width="500px"
-          height="auto"
           alt="alternative text"
-        ></img>
-        <Box sx={{ width: "20%" }}>
+          sx={{
+            width: { xs: "250px", sm: "350px", md: "500px" },
+            height: "auto",
+            objectFit: "fill",
+          }}
+        />
+        <Box sx={{ width: { xs: "60%", sm: "30%", md: "20%" } }}>
           <Typography
             variant="h3"
-            marginLeft="2rem"
+            marginLeft="4rem"
             sx={{
               display: "flex",
               alignItems: "start",
@@ -330,9 +350,7 @@ const HistoryPage = () => {
           <Typography variant="h5" marginLeft="2rem" textAlign="center">
             {" "}
             Cea mai noua competitie internationala creata de UEFA ne-a oferit
-            sansa sa castigam si aceasta competitie de {
-              conference.trophies
-            }{" "}
+            sansa sa castigam si aceasta competitie de {conference.trophies}{" "}
             ori!{" "}
           </Typography>
         </Box>
@@ -343,10 +361,9 @@ const HistoryPage = () => {
           justifyContent: "center",
           alignItems: "center",
           marginTop: "10rem",
-          
         }}
       >
-        <Box sx={{ width: "20%" }}>
+        <Box sx={{  width: { xs: "60%", sm: "30%", md: "20%" } }}>
           <Typography
             variant="h3"
             marginRight="2rem"
@@ -368,12 +385,16 @@ const HistoryPage = () => {
             muzeul nostru.
           </Typography>
         </Box>
-        <img
+        <Box
+          component="img"
           src="/assets/NewsPicture.webp"
-          width="500px"
-          height="auto"
           alt="alternative text"
-        ></img>
+          sx={{
+            width: { xs: "250px", sm: "350px", md: "500px" },
+            height: "auto",
+            objectFit: "fill",
+          }}
+        />
       </Box>
       <Box
         sx={{
@@ -385,19 +406,23 @@ const HistoryPage = () => {
           height: "40%",
         }}
       >
-        <img
+        <Box
+          component="img"
           src="/assets/fans.webp"
-          width="500px"
-          height="auto"
           alt="alternative text"
-        ></img>
-        <Box sx={{ width: "20%" }}>
+          sx={{
+            width: { xs: "250px", sm: "350px", md: "500px" },
+            height: "auto",
+            objectFit: "fill",
+          }}
+        />
+        <Box sx={{ width: { xs: "60%", sm: "30%", md: "20%" }}}>
           <Typography
             variant="h3"
-            marginLeft="2rem"
+            marginLeft="4rem"
             sx={{
               display: "flex",
-              alignItems: "start",
+              alignItems: "center",
               justifyContent: "center",
               marginBottom: "1rem",
             }}
@@ -413,6 +438,7 @@ const HistoryPage = () => {
           </Typography>
         </Box>
       </Box>
+      <Footer />
     </>
   );
 };

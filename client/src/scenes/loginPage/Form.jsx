@@ -96,8 +96,8 @@ const Form = () => {
     const data = await response.json();
 
     if (response.ok) {
+      dispatch(setLogin({ user: data.user, token: data.token }));
       navigate("/")
-      setFormStage("login");
     } else {
       console.error("Registration failed");
     }

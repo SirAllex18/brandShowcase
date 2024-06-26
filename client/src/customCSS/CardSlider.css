@@ -152,3 +152,17 @@
     padding-inline: 2.5rem;
   }
 }
+
+@media screen and (max-width: 650px) {
+  .card__article:hover .card__data,
+  .card__article:hover,
+  .card__article:not(:hover) .card__data,
+  .card__article:not(:hover) {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .card__data {
+    display: none;
+  }
+}

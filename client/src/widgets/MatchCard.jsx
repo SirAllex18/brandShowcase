@@ -1,7 +1,16 @@
 import React from "react";
-import { Card, CardContent, Box, Typography, Button } from "@mui/material";
+import { Card, CardContent, Box, Typography  } from "@mui/material";
 
 const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date, showScore, probability }) => {
+
+  function extractTime(datetimeString) {
+    const date = new Date(datetimeString);
+    const hours = date.getUTCHours().toString().padStart(2, '0');
+    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
+  const time = extractTime(date);
+  
   return (
     <Card sx={{ borderRadius: "16px", width: "100%" }}>
       <CardContent>
@@ -40,7 +49,7 @@ const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date, sh
               style={{ width: "70px", marginRight: "2rem" }}
             />
             <Typography variant="h3">
-              {showScore ? `${score.home} - ${score.away}` : date.split('T')[1].split(':00+')[0]}
+              {showScore ? `${score.home} - ${score.away}` : time }
             </Typography>
             <img
               src={awayTeam.logo}

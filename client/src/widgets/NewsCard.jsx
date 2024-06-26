@@ -12,7 +12,6 @@ const NewsCard = ({ id, title, image, preview, content }) => {
   return (
     <Card
       sx={{
-        m: 2,
         boxShadow: "none",
         border: 0,
         borderRadius: "16px",

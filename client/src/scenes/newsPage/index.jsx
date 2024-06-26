@@ -32,7 +32,7 @@ const NewsPage = () => {
   return (
     <>
       <Navbar />
-      <Container>
+      <Container sx={{ marginTop: "6rem"}}>
         <Box
           sx={{
             display: "flex",
@@ -41,7 +41,7 @@ const NewsPage = () => {
             flexDirection: "column",
           }}
         >
-          <Typography variant="h2" sx={{ marginTop: "2rem" }}>
+          <Typography variant="h2" textAlign="center" sx={{ marginTop: "2rem" }}>
             {title}
           </Typography>
           <CardMedia

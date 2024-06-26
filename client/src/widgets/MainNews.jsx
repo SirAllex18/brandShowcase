@@ -11,8 +11,8 @@ const MainNews = ({ image, title }) => {
   return (
     <Card
       sx={{
+        marginBottom: "1rem",
         display: "flex",
-        margin: 2,
         borderRadius: "16px",
         width: "100%",
         "&:hover": { cursor: "pointer" },

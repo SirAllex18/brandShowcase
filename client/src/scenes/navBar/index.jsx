@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   IconButton,
@@ -18,7 +18,6 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import LanguageIcon from "@mui/icons-material/Language";
 import { Menu, Close } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "state";
@@ -30,6 +29,8 @@ import CloseIcon from "@mui/icons-material/Close";
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const [openAccountDialog, setOpenAccountDialog] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(window.scrollY);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
@@ -93,9 +94,30 @@ const Navbar = () => {
     }
   }
 
+  const controlNavbar = () => {
+    if (window.scrollY > lastScrollY) {
+      // Scrolling down
+      setIsNavbarVisible(false);
+    } else {
+      // Scrolling up
+      setIsNavbarVisible(true);
+    }
+    setLastScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", controlNavbar);
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, [lastScrollY]);
 
   return (
-    <FlexBetween padding="0.75rem 2%" backgroundColor="#F3F5F8">
+    <FlexBetween
+      padding="0.75rem 2%"
+      backgroundColor="#F3F5F8"
+      style={{ transition: 'top 0.3s', top: isNavbarVisible ? '0' : '-80px', position: 'fixed', width: '100%', zIndex: 1000 }}
+    >
       <FlexBetween gap="1.75rem">
         <Avatar
           src={`${process.env.PUBLIC_URL}/assets/logo.jpg`}
@@ -223,8 +245,6 @@ const Navbar = () => {
               </Button>
             </Box>
           )}
-
-          <LanguageIcon />
         </FlexBetween>
       ) : (
         <IconButton
@@ -244,7 +264,7 @@ const Navbar = () => {
           zIndex="10"
           maxWidth="500px"
           minWidth="300px"
-          backgroundColor="red"
+          backgroundColor="#6CB4EE"
         >
           {/* CLOSE ICON */}
           <Box display="flex" justifyContent="flex-end" p="1rem">
@@ -254,6 +274,60 @@ const Navbar = () => {
               <Close />
             </IconButton>
           </Box>
+          <Box display="flex" justifyContent="space-evenly" flexDirection="column" alignItems="center">
+          <Typography
+              fontSize="clamp(0.75rem, 1rem, 1.5rem)"
+              sx={{
+                "&:hover": {
+                  color: "white",
+                  cursor: "pointer",
+                },
+                marginTop: "0.5rem"
+              }}
+              onClick={handleTeamClick}
+            >
+              Prima echipă
+            </Typography>
+            <Typography
+              fontSize="clamp(0.75rem, 1rem, 1.5rem)"
+              sx={{
+                "&:hover": {
+                  color: "white",
+                  cursor: "pointer",
+                },
+                marginTop: "0.5rem"
+              }}
+              onClick={() => navigate("/matches")}
+            >
+              Evenimente
+            </Typography>
+            <Typography
+              fontSize="clamp(0.75rem, 1rem, 1.5rem)"
+              sx={{
+                "&:hover": {
+                  color: "white",
+                  cursor: "pointer",
+                },
+                marginTop: "0.5rem"
+              }}
+              onClick={() => navigate("/history")}
+            >
+              Istorie
+            </Typography>
+            <Typography
+              fontSize="clamp(0.75rem, 1rem, 1.5rem)"
+              sx={{
+                "&:hover": {
+                  color: "white",
+                  cursor: "pointer",
+                },
+                marginTop: "0.5rem"
+              }}
+              onClick={handleShopClick}
+            >
+              Magazin
+            </Typography>
+          </Box>
 
           {/* MENU ITEMS */}
           <FlexBetween
@@ -262,6 +336,7 @@ const Navbar = () => {
             justifyContent="center"
             alignItems="center"
             gap="2rem"
+            marginTop="2rem"
           >
             <FormControl variant="standard" value={fullName}>
               <Select
@@ -269,13 +344,10 @@ const Navbar = () => {
                 sx={{
                   width: "150px",
                   borderRadius: "0.25rem",
-                  p: "0.25rem 1rem",
+                  p: "0.25rem 3.5rem",
                   "& .MuiSvgIcon-root": {
                     pr: "0.25rem",
                     width: "3rem",
-                  },
-                  "& .MuiSelect-select:focus": {
-                    backgroundColor: "green",
                   },
                 }}
                 input={<InputBase />}
@@ -304,7 +376,7 @@ const Navbar = () => {
             sx={{
               marginRight: "1rem",
               "&:hover": {
-                color: "blue",
+                color: "#6CB4EE",
                 cursor: "pointer",
               },
             }}

@@ -6,6 +6,8 @@ import {
   Box,
   Typography,
   Button,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { setMatches } from "../../state/matchSlice.js";
 import NavBar from "scenes/navBar";
@@ -39,7 +41,8 @@ const HomePage = () => {
   const [selectedYear, setSelectedYear] = useState(1990);
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
 
    const addNewsItem = (newItem) => {
@@ -130,13 +133,12 @@ const HomePage = () => {
   const selectedYearData = data[0]?.records
     ? data[0].records.find((record) => record.year === selectedYear) || {}
     : {};
-  console.log(matchInfo);
   return (
     <>
       <Box>
         <NavBar />
         <Container>
-          <Grid container justifyContent="center">
+          <Grid container justifyContent="center" marginTop="7rem">
             <Grid item xs={12}>
               <MainCard
                 title="Our 27th title, lets go blues!"
@@ -177,53 +179,55 @@ const HomePage = () => {
             </Box>
           )}
         </Container>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          sx={{ backgroundColor: "#2C2F33", p: 2, mt: 2 }}
-        >
-          <Typography sx={{ color: "white", mr: 2 }}>MAIN PARTNERS</Typography>
-          <Divider
-            orientation="vertical"
-            flexItem
-            sx={{ backgroundColor: "white", height: "40px", mx: 2 }}
-          />
-          <Box display="flex" justifyContent="center" alignItems="center">
-            {partners.map((partner, index) => (
-              <Box
-                key={index}
-                component="a"
-                href={partner.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                  mx: 2,
-                  textDecoration: "none",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+        {!isMobile && (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ backgroundColor: "#2C2F33", p: 2, mt: 2 }}
+          >
+            <Typography sx={{ color: "white", mr: 2 }}>MAIN PARTNERS</Typography>
+            <Divider
+              orientation="vertical"
+              flexItem
+              sx={{ backgroundColor: "white", height: "40px", mx: 2 }}
+            />
+            <Box display="flex" justifyContent="center" alignItems="center">
+              {partners.map((partner, index) => (
                 <Box
-                  component="img"
-                  src={partner.image}
-                  alt={partner.name}
+                  key={index}
+                  component="a"
+                  href={partner.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   sx={{
-                    filter: "grayscale(100%)",
-                    transition: "filter 0.3s",
-                    "&:hover": {
-                      filter: "grayscale(0%)",
-                    },
-                    height: "40px",
+                    mx: 2,
+                    textDecoration: "none",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
-                />
-              </Box>
-            ))}
+                >
+                  <Box
+                    component="img"
+                    src={partner.image}
+                    alt={partner.name}
+                    sx={{
+                      filter: "grayscale(100%)",
+                      transition: "filter 0.3s",
+                      "&:hover": {
+                        filter: "grayscale(0%)",
+                      },
+                      height: "40px",
+                    }}
+                  />
+                </Box>
+              ))}
+            </Box>
           </Box>
-        </Box>
+        )}
         <Container maxWidth="xl">
-          <Grid container spacing={2} justifyContent="center">
+          <Grid container spacing={2} justifyContent="center" marginY="3rem">
             {matchInfo.map((match, index) => (
               <Grid item xs={12} sm={6} md={index === 1 ? 6 : 3} key={index}>
                 <MatchCard {...match} showScore={index === 0} />
@@ -247,11 +251,11 @@ const HomePage = () => {
               marginLeft: "1.2rem",
             }}
           >
-            <Typography variant="h4">Our Players</Typography>
+            <Typography variant="h3">Jucatorii echipei</Typography>
           </Box>
           <PlayersSlider />
         </Container>
-        <Box sx={{ height: "100px", backgroundColor: "#e1e5ea", my: "4rem" }} />
+        <Box sx={{ height: "100px", backgroundColor: "#e1e5ea", marginY: "4rem" }} />
         <Container>
           <Box
             sx={{
@@ -261,7 +265,7 @@ const HomePage = () => {
             }}
           >
             <Typography variant="h4" sx={{ marginLeft: "1.2rem" }}>
-              A legendary track record
+              Un parcurs legendar
             </Typography>
           </Box>
           <Box>

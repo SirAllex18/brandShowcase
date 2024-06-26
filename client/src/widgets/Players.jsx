@@ -11,8 +11,6 @@ import { Typography } from "@mui/material";
 
 const PlayersSlider = () => {
   const [players, setNewPlayers] = useState([]);
-  console.log(players);
-
   useEffect(() => {
     const getPlayers = async () => {
       try {

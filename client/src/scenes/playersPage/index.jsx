@@ -28,7 +28,7 @@ const PlayersPage = () => {
           alignItems: "center"
         }}
       >
-        <Container>
+        <Container sx={{ marginTop: "5rem" }}>
           <Typography variant="h1" color="textPrimary">
             Prima Echipa
           </Typography>

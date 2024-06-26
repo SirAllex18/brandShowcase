@@ -36,7 +36,7 @@ const Navbar = () => {
   const cart = useSelector((state) => state.auth.cart);  
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
-  const fullName = user ? `${user.firstName} ${user.lastName}` : "Log In";
+  const fullName = user ? `${user.firstName}` : "Log In";
 
   const handleDialogOpen = () => {
     setOpen(true);
@@ -54,17 +54,22 @@ const Navbar = () => {
 
   const handleBuyButton = async () => {
     try {
-      console.log(typeof(cart[0].quantity))
+      const cartItems = cart.map(item => ({
+        productId: item.id,
+        size: item.size,
+        quantity: item.quantity
+      }));
+  
       const response = await fetch("http://localhost:3001/store/products/updateQuantity", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(cart),
+        body: JSON.stringify({ cartItems }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         setOpen(false);
         dispatch(clearCart());

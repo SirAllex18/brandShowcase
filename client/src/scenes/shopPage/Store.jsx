@@ -4,6 +4,7 @@ import ImageGrid from "widgets/ImageGrid";
 import { useEffect, useState } from "react";
 import { Typography, Button, Box, Grid, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Footer from "scenes/footer";
 
 const ShopPage = () => {
   const [productsButtons, setNewButtons] = useState([]);
@@ -101,6 +102,7 @@ const ShopPage = () => {
         </Box>
       </Container>
       <ImageGrid />
+      <Footer/>
     </>
   );
 };

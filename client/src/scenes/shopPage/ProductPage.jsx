@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "state";
 import AccordionProduct from "widgets/Accordion";
 import { useState } from "react";
+import Footer from "scenes/footer";
 
 const ProductPage = () => {
   const location = useLocation();
@@ -49,6 +50,7 @@ const ProductPage = () => {
           quantity,
         };
         dispatch(addToCart(product));
+        setQuantity(1)
       } else {
         alert("Selecteaza o marime!");
       }
@@ -186,6 +188,7 @@ const ProductPage = () => {
           </Box>
         </Box>
       </Box>
+      <Footer/>
     </>
   );
 };
