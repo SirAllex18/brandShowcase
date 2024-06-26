@@ -161,7 +161,7 @@ const CategoryPage = () => {
               startIcon={<FilterAltIcon />}
               onClick={() => setDrawerState(true)}
             >
-              <Typography variant="h5">Filter</Typography>
+              <Typography variant="h5">Filtru</Typography>
             </Button>
             <Drawer
               open={drawerState}
@@ -202,7 +202,7 @@ const CategoryPage = () => {
                     },
                   }}
                 >
-                  <Typography variant="h6">Gender</Typography>
+                  <Typography variant="h6">Gen</Typography>
                 </Button>
                 <Collapse in={open}>
                   <FormGroup sx={{ paddingLeft: 2 }}>
@@ -214,7 +214,7 @@ const CategoryPage = () => {
                           name="kids"
                         />
                       }
-                      label="Youth"
+                      label="Copii"
                     />
                     <FormControlLabel
                       control={
@@ -234,7 +234,7 @@ const CategoryPage = () => {
                           name="female"
                         />
                       }
-                      label="Female"
+                      label="Femei"
                     />
                     <FormControlLabel
                       control={
@@ -244,7 +244,7 @@ const CategoryPage = () => {
                           name="male"
                         />
                       }
-                      label="Male"
+                      label="Barbati"
                     />
                   </FormGroup>
                 </Collapse>
@@ -261,10 +261,10 @@ const CategoryPage = () => {
                   displayEmpty
                   inputProps={{ "aria-label": "Without label" }}
                 >
-                  <MenuItem value="Date+">Date - Ascending </MenuItem>
-                  <MenuItem value="Date-">Date - Descending </MenuItem>
-                  <MenuItem value="Price+">Price - Ascending </MenuItem>
-                  <MenuItem value="Price-">Price - Descending </MenuItem>
+                  <MenuItem value="Date+">Data - Crescator </MenuItem>
+                  <MenuItem value="Date-">Data - Descrescator </MenuItem>
+                  <MenuItem value="Price+">Pret - Crescator </MenuItem>
+                  <MenuItem value="Price-">Pret - Descrescator </MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -273,6 +273,7 @@ const CategoryPage = () => {
             {currentItems.map((item) => (
               <Grid item key={item._id} xs={12} sm={6} md={4} lg={3}>
                 <Item
+                  flag={true}
                   id={item._id}
                   title={item.name}
                   description={item.description}

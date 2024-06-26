@@ -53,7 +53,7 @@ const ShopPage = () => {
         textAlign={"center"}
         sx={{ marginTop: "2rem", marginBottom: "2rem" }}
       >
-        Trending now
+        Populare acum
       </Typography>
       <Box
         sx={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}
@@ -96,7 +96,7 @@ const ShopPage = () => {
               navigateTo("/store/Category", { state: { categorySelected } })
             }
           >
-            Show more
+            Mai mult
           </Button>
         </Box>
       </Container>

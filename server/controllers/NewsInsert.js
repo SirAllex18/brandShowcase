@@ -1,23 +1,32 @@
-import News from "../models/News.js"
+import News from "../models/News.js";
 
 export const FileInsert = async (req, res) => {
-    try {
-        const { author, title, preview, content } = req.body;
+  try {
+    const { author, title, preview, content } = req.body;
+    const image = req.file;
 
-        const newNews = new News({
-            author,
-            title,
-            preview,
-            content
-        });
-
-        const savedNews = await newNews.save();
-        res.status(201).json(savedNews);
-    } catch(err) {
-        console.log(err);
-        res.status(500).json({ error: err.message });
+    if (!image) {
+      return res.status(400).json({ error: 'Image is required' });
     }
-}
+
+    const imageUrl = `/server-assets/${image.filename}`;
+
+    const newNews = new News({
+      author,
+      title,
+      preview,
+      content,
+      imageUrl,
+    });
+
+    const savedNews = await newNews.save();
+    res.status(201).json(savedNews);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
 
 
 export const getAllNews = async (req, res) => {

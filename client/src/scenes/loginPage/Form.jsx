@@ -96,6 +96,7 @@ const Form = () => {
     const data = await response.json();
 
     if (response.ok) {
+      navigate("/")
       setFormStage("login");
     } else {
       console.error("Registration failed");

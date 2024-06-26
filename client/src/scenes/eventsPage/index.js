@@ -49,14 +49,14 @@ const MatchPage = () => {
       <Navbar />
       <Container>
         <Box marginTop="3rem">
-          <Typography variant="h3"> Match Report </Typography>
+          <Typography variant="h3"> Raportul meciului. </Typography>
           <MatchCard {...matchInfo[0]} showScore={true} />
           <Box sx={{ marginTop: "2rem" }}>
             {formatCommentary(matchInfo[0].commentary)}
           </Box>
         </Box>
         <Box marginTop="5rem">
-          <Typography variant="h4"> Our next game </Typography>
+          <Typography variant="h4"> Urmatorul nostru meci: </Typography>
           <MatchCard {...matchInfo[1]} />
         </Box>
       </Container>

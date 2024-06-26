@@ -1,13 +1,20 @@
 import * as React from "react";
+import { useState, useCallback } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useDropzone } from 'react-dropzone';
+import Dropzone from "react-dropzone";
+import FlexBetween from "components/FlexBetween";
+import { Typography, Box } from "@mui/material";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 export default function NewsDialogue({ addNewsItem }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [image, setImage] = useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -15,21 +22,32 @@ export default function NewsDialogue({ addNewsItem }) {
 
   const handleClose = () => {
     setOpen(false);
+    setImage(null); // Reset image state when closing the dialog
   };
 
+  const handleDrop = useCallback((acceptedFiles) => {
+    setImage(acceptedFiles[0]);
+  }, []);
+
   const handleSubmit = async (event) => {
-    console.log('Submitting form...');
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const formJson = Object.fromEntries(formData.entries());
-    
+    const formData = new FormData();
+
+    formData.append('author', event.target.author.value);
+    formData.append('title', event.target.title.value);
+    formData.append('preview', event.target.preview.value);
+    formData.append('content', event.target.content.value);
+
+    if (image) {
+      formData.append('image', image);
+    }
+
+    console.log("FormData", formData)
+
     try {
       const response = await fetch('http://localhost:3001/files/fileInsert', { 
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formJson),
+        body: formData,
       });
 
       const data = await response.json();
@@ -105,6 +123,30 @@ export default function NewsDialogue({ addNewsItem }) {
             multiline
             variant="standard"
           />
+          <Dropzone
+            acceptedFiles=".jpg,.jpeg,.png"
+            multiple={false}
+            onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <Box
+                {...getRootProps()}
+                border="2px dashed #ccc"
+                p="1rem"
+                sx={{ "&:hover": { cursor: "pointer" } }}
+              >
+                <input {...getInputProps()} />
+                {!image ? (
+                  <p>Add Picture Here</p>
+                ) : (
+                  <FlexBetween>
+                    <Typography>{image.name}</Typography>
+                    <EditOutlinedIcon />
+                  </FlexBetween>
+                )}
+              </Box>
+            )}
+          </Dropzone>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Inchide</Button>

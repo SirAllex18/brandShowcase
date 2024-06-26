@@ -50,10 +50,10 @@ const ProductPage = () => {
         };
         dispatch(addToCart(product));
       } else {
-        alert("Please select a size");
+        alert("Selecteaza o marime!");
       }
     } else {
-      alert("You must be logged in to add items to the cart");
+      alert("Trebuie mai intai sa te loghezi!");
     }
   };
 
@@ -61,7 +61,7 @@ const ProductPage = () => {
     const value = parseInt(event.target.value, 10);
     if (value > availableQuantity) {
       setQuantity(availableQuantity);
-      alert(`Only ${availableQuantity} items available`);
+      alert(`Doar ${availableQuantity} produse sunt disponibile`);
     } else {
       setQuantity(value);
     }
@@ -91,6 +91,9 @@ const ProductPage = () => {
             marginTop: "3rem",
             width: "50rem",
             height: "65rem",
+            border: 3,
+            borderColor: '#6CB4EE',
+            borderRadius: 5
           }}
           src={imageUrl || `${process.env.PUBLIC_URL}/assets/item2.webp`}
           alt="Product Image"
@@ -103,7 +106,7 @@ const ProductPage = () => {
                 color="text.secondary"
                 gutterBottom
               >
-                Home - {subCategory}
+                Acasa - {subCategory}
               </Typography>
               <Typography
                 variant="h5"
@@ -119,7 +122,7 @@ const ProductPage = () => {
                 variant="body1"
                 sx={{ fontWeight: "bold", marginTop: "2rem" }}
               >
-                Size:
+                Dimensiuni:
               </Typography>
               <Box sx={{ marginTop: "0.75rem" }}>
                 {sizes.map((item, index) => (
@@ -174,7 +177,7 @@ const ProductPage = () => {
                 }}
                 onClick={handleAddToCart}
               >
-                Add to cart
+                Adauga in cos
               </Button>
             </CardActions>
           </Card>

@@ -28,7 +28,7 @@ export default function ControlledAccordions({description, materials}) {
           id="panel1bh-header"
         >
           <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Product Description
+            Descriere produs
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -47,7 +47,7 @@ export default function ControlledAccordions({description, materials}) {
           id="panel2bh-header"
         >
           <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Product Details
+            Detalii produs
           </Typography>
         </AccordionSummary>
         <AccordionDetails>

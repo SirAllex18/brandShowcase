@@ -1,12 +1,14 @@
 import React from "react";
 import { Card, CardMedia, Typography, CardContent } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import getImageUrl from "components/getImageUrl";
 
 const NewsCard = ({ id, title, image, preview, content }) => {
   const navigate = useNavigate();
   const handleCardClick = () => {
     navigate(`/news/${id}`, { state: { title, image, preview, content } });
   };
+
   return (
     <Card
       sx={{
@@ -26,7 +28,7 @@ const NewsCard = ({ id, title, image, preview, content }) => {
       <CardMedia
         component="img"
         height="220"
-        image={image}
+        image={getImageUrl(image)}
         alt="News Image"
         sx={{
           width: "100%",

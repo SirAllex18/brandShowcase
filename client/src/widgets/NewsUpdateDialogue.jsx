@@ -59,7 +59,7 @@ export default function NewsUpdateDialogue({ author, preview, content, title, _i
           onSubmit: handleSubmit
         }}
       >
-        <DialogTitle>Compune stirea</DialogTitle>
+        <DialogTitle>Actualizeaza stirea</DialogTitle>
         <DialogContent>
         <input type="hidden" name="_id" value={_id} />
 
@@ -115,7 +115,7 @@ export default function NewsUpdateDialogue({ author, preview, content, title, _i
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Inchide</Button>
-          <Button type="submit">Posteaza</Button>
+          <Button type="submit">Actualizeaza</Button>
         </DialogActions>
       </Dialog>
     </>

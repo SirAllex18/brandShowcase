@@ -14,7 +14,7 @@ import trophyRoutes from "./routes/trophies.js"
 import gameRoutes from "./routes/matchDay.js"
 import storeRoutes from "./routes/store.js"
 import playersRoutes from "./routes/players.js"
-import { register } from "./controllers/auth.js"
+import { FileInsert } from "./controllers/NewsInsert.js";
 import "./cronJob.js";
 
 
@@ -31,13 +31,14 @@ dotevn.config();
  app.use(bodyParser.json({ limit: "30mb",  extended: true }));
  app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}));
  app.use(cors())
- app.use("/assets", express.static(path.join(__dirname, 'public/assets')));
+ app.use("/assets", express.static(path.join(__dirname, '../../client/public/assets')));
 
-
+ const publicServerAssetsPath = path.join(__dirname, 'public/server-assets');
+ app.use("/server-assets", express.static(publicServerAssetsPath));
  /* FILE Storage */
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
-        cb(null, "public/assets");
+        cb(null, "public/server-assets");
     },
     filename: function(req, file, cb){
         cb(null, file.originalname);
@@ -47,7 +48,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 /* Routes with files */ 
-app.post("/auth/register", upload.single("picture"), register)
+app.post('/fileInsert', upload.single('image'), FileInsert);
 
 // ROUTES
 app.use("/auth", authRoutes);

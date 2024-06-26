@@ -228,7 +228,7 @@ const Navbar = () => {
                   <Box flexGrow={1}>
                     <Typography variant="h3">{item.title}</Typography>
                     <Typography variant="h4" fontWeight="bold" marginTop="1rem">${item.price}</Typography>
-                    <Typography variant="h4">Quantity: {item.quantity}</Typography>
+                    <Typography variant="h4">Cantitate: {item.quantity}</Typography>
                     <Box display="flex" justifyContent="right">
                       <IconButton onClick={() => handleRemoveFromCart(item.id, item.size)}>
                         <DeleteIcon />
@@ -244,7 +244,7 @@ const Navbar = () => {
           )}
         </DialogContent>
         <DialogActions>
-        <Button onClick={handleDialogClose}>Close</Button>
+        <Button onClick={handleDialogClose}>Inchide</Button>
           {cart?.length > 0 && (
             <Button onClick={handleBuyButton}>Cumpara</Button>
           )}

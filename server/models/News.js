@@ -23,8 +23,9 @@ const NewsSchema = new Schema({
     type: String,
     required: true,
   },
-  imagePath: {
+  imageUrl: {
     type: String,
+    required: true
   },
   showFlag: {
     type: Boolean,

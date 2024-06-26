@@ -15,7 +15,8 @@ const Item = ({
   price,
   imageUrl,
   id,
-  subCategory
+  subCategory,
+  flag
 }) => {
   const navigateTo = useNavigate();
   const handleCardClick = () => {
@@ -23,10 +24,15 @@ const Item = ({
       state: { id, title, description, gender, materials, sizes, price, imageUrl, subCategory },
     });
   };
+  let heightCategory = "350px"
+  if(flag === true){
+    heightCategory = "700px"
+  }
   return (
     <Card
       sx={{
         maxwidth: 300,
+        height: "auto",
         borderRadius: 4,
         boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.2)",
         "&:hover": {
@@ -42,6 +48,10 @@ const Item = ({
         component="img"
         image={imageUrl}
         title="Product Image"
+        sx={{
+          objectFit: "cover",
+          height: heightCategory
+        }}
       />
       <CardContent
         sx={{
