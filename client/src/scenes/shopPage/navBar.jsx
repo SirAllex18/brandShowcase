@@ -18,7 +18,6 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import LanguageIcon from "@mui/icons-material/Language";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Menu, Close } from "@mui/icons-material";
@@ -153,7 +152,6 @@ const Navbar = () => {
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-            <LanguageIcon />
           </FlexBetween>
         ) : (
           <IconButton
@@ -173,7 +171,7 @@ const Navbar = () => {
             zIndex="10"
             maxWidth="500px"
             minWidth="300px"
-            backgroundColor="red"
+            backgroundColor="#6CB4EE"
           >
             {/* CLOSE ICON */}
             <Box display="flex" justifyContent="flex-end" p="1rem">
@@ -185,6 +183,14 @@ const Navbar = () => {
             </Box>
 
             {/* MENU ITEMS */}
+            <Box display="flex" justifyContent="center" alignItems="center" flexDirection="row" marginBottom="2rem">
+              <Typography variant="h5"> Cosul de cumparaturi</Typography>
+              <IconButton onClick={handleDialogOpen}>
+                <Badge badgeContent={cart?.length || 0} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </Box>
             <FlexBetween
               display="flex"
               flexDirection="column"
@@ -202,9 +208,6 @@ const Navbar = () => {
                     "& .MuiSvgIcon-root": {
                       pr: "0.25rem",
                       width: "3rem",
-                    },
-                    "& .MuiSelect-select:focus": {
-                      backgroundColor: "green",
                     },
                   }}
                   input={<InputBase />}

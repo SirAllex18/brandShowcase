@@ -9,7 +9,7 @@ export const newsletterEmail = async (req, res) => {
     secure: false,
     auth: {
       user: "alexandru.nistor2@student.upt.ro",
-      pass: "Ciciosi25",
+      pass: process.env.PASSWORD,
     },
   });
 

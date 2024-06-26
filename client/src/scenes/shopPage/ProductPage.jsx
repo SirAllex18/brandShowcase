@@ -1,4 +1,4 @@
-import Navbar from "./navBar";
+import * as React from "react";
 import {
   Box,
   Typography,
@@ -7,12 +7,15 @@ import {
   Button,
   Card,
   TextField,
+  Grid,
+  Container
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "state";
 import AccordionProduct from "widgets/Accordion";
 import { useState } from "react";
+import Navbar from "./navBar";
 import Footer from "scenes/footer";
 
 const ProductPage = () => {
@@ -33,7 +36,7 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.auth.user);
   const [availableQuantity, setAvailableQuantity] = useState(null);
- 
+
   const handleAddToCart = () => {
     if (user) {
       if (selectedSize) {
@@ -50,7 +53,7 @@ const ProductPage = () => {
           quantity,
         };
         dispatch(addToCart(product));
-        setQuantity(1)
+        setQuantity(1);
       } else {
         alert("Selecteaza o marime!");
       }
@@ -84,111 +87,112 @@ const ProductPage = () => {
   return (
     <>
       <Navbar />
-      <Box
-        sx={{ display: "flex", justifyContent: "space-around", height: "100%" }}
-      >
-        <Box
-          component="img"
-          sx={{
-            marginTop: "3rem",
-            width: "50rem",
-            height: "65rem",
-            border: 3,
-            borderColor: '#6CB4EE',
-            borderRadius: 5
-          }}
-          src={imageUrl || `${process.env.PUBLIC_URL}/assets/item2.webp`}
-          alt="Product Image"
-        />
-        <Box sx={{ marginTop: "2rem", width: "40%", height: "250px" }}>
-          <Card variant="outlined" sx={{ borderRadius: 5 }}>
-            <CardContent>
-              <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-              >
-                Acasa - {subCategory}
-              </Typography>
-              <Typography
-                variant="h5"
-                component="div"
-                sx={{ marginTop: "1rem" }}
-              >
-                {title}
-              </Typography>
-              <Typography variant="body1" sx={{ marginTop: "0.4rem" }}>
-                {price}$
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{ fontWeight: "bold", marginTop: "2rem" }}
-              >
-                Dimensiuni:
-              </Typography>
-              <Box sx={{ marginTop: "0.75rem" }}>
-                {sizes.map((item, index) => (
-                  <Button
-                    key={index}
-                    variant="outlined"
-                    size="small"
-                    sx={{
-                      borderRadius: 5,
-                      fontSize: "0.75rem",
-                      padding: "2px 6px",
-                      minWidth: "30px",
-                      minHeight: "30px",
-                      marginRight: "0.5rem",
-                      backgroundColor:
-                        selectedSize === item.size ? "blue" : "transparent",
-                      color: selectedSize === item.size ? "white" : "inherit",
-                      borderColor:
-                        selectedSize === item.size ? "blue" : "inherit",
+      <Container maxWidth="xl" sx={{ marginTop: "3rem" }}>
+        <Grid container spacing={8}>
+          <Grid item xs={12} md={6} display="flex" justifyContent="center">
+            <Box
+              component="img"
+              sx={{
+                width: { xs: "100%", sm: "80%", md: "50rem" },
+                height: "auto",
+                border: 3,
+                borderColor: "#6CB4EE",
+                borderRadius: 5,
+              }}
+              src={imageUrl || `${process.env.PUBLIC_URL}/assets/item2.webp`}
+              alt="Product Image"
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 5 }}>
+              <CardContent>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  Acasa - {subCategory}
+                </Typography>
+                <Typography
+                  variant="h5"
+                  component="div"
+                  sx={{ marginTop: "1rem" }}
+                >
+                  {title}
+                </Typography>
+                <Typography variant="body1" sx={{ marginTop: "0.4rem" }}>
+                  {price}$
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ fontWeight: "bold", marginTop: "2rem" }}
+                >
+                  Dimensiuni:
+                </Typography>
+                <Box sx={{ marginTop: "0.75rem" }}>
+                  {sizes.map((item, index) => (
+                    <Button
+                      key={index}
+                      variant="outlined"
+                      size="small"
+                      sx={{
+                        borderRadius: 5,
+                        fontSize: "0.75rem",
+                        padding: "2px 6px",
+                        minWidth: "30px",
+                        minHeight: "30px",
+                        marginRight: "0.5rem",
+                        backgroundColor:
+                          selectedSize === item.size ? "blue" : "transparent",
+                        color: selectedSize === item.size ? "white" : "inherit",
+                        borderColor:
+                          selectedSize === item.size ? "blue" : "inherit",
+                      }}
+                      onClick={() => handleSizeClick(item)}
+                      disabled={item.quantity === 0}
+                    >
+                      {item.size}
+                    </Button>
+                  ))}
+                </Box>
+                {availableQuantity !== null && (
+                  <TextField
+                    id="filled-number"
+                    label="Quantity"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
                     }}
-                    onClick={() => handleSizeClick(item)}
-                    disabled={item.quantity === 0}
-                  >
-                    {item.size}
-                  </Button>
-                ))}
-              </Box>
-              {availableQuantity !== null && (
-                <TextField
-                  id="filled-number"
-                  label="Quantity"
-                  type="number"
-                  InputLabelProps={{
-                    shrink: true,
+                    sx={{ marginTop: "2rem", width: "8rem" }}
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                    inputProps={{ min: 1, max: availableQuantity }}
+                  />
+                )}
+              </CardContent>
+              <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    width: "100%",
+                    borderRadius: 4,
+                    marginBottom: "1rem",
+                    mx: "1rem",
+                    padding: "0.70rem",
                   }}
-                  sx={{ marginTop: "2rem", width: "8rem" }}
-                  value={quantity}
-                  onChange={handleQuantityChange}
-                  inputProps={{ min: 1, max: availableQuantity }}
-                />
-              )}
-            </CardContent>
-            <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                variant="contained"
-                sx={{
-                  width: "100%",
-                  borderRadius: 4,
-                  marginBottom: "1rem",
-                  mx: "1rem",
-                  padding: "0.70rem",
-                }}
-                onClick={handleAddToCart}
-              >
-                Adauga in cos
-              </Button>
-            </CardActions>
-          </Card>
-          <Box sx={{ marginTop: "1rem" }}>
-            <AccordionProduct description={description} materials={materials} />
-          </Box>
-        </Box>
-      </Box>
-      <Footer/>
+                  onClick={handleAddToCart}
+                >
+                  Adauga in cos
+                </Button>
+              </CardActions>
+            </Card>
+            <Box sx={{ marginTop: "1rem" }}>
+              <AccordionProduct description={description} materials={materials} />
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+      <Footer />
     </>
   );
 };

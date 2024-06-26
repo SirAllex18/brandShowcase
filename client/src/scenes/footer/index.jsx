@@ -18,7 +18,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import XIcon from "@mui/icons-material/X";
 import FlexBetween from "components/FlexBetween";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const MainSponsors = [
   "/assets/spotify.png",

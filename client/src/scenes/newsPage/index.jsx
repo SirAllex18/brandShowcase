@@ -1,8 +1,7 @@
-import { Box, Button, CardMedia, Container, Typography } from "@mui/material";
+import { Box, CardMedia, Container, Typography } from "@mui/material";
 import Navbar from "../navBar";
 import Footer from "scenes/footer";
-import { useLocation, useParams } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useLocation } from "react-router-dom";
 
 const Paragraphs = ({ text }) => {
   const paragraphs = text.split('\n\n');
@@ -25,7 +24,6 @@ const Paragraphs = ({ text }) => {
 
 const NewsPage = () => {
  
-  const { id } = useParams();
   const location = useLocation();
   const { title, image, content } = location.state;
   
