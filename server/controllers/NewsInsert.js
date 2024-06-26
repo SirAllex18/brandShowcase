@@ -28,3 +28,33 @@ export const getAllNews = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+export const deleteNews = async (req, res) => {
+    try {
+        const { _id } = req.body;
+        const deleteNews = await News.findByIdAndUpdate(_id, { $set: { showFlag: false } }, { new: true });
+        if (!deleteNews) {
+            return res.status(404).json({ message: "News not found" });
+        }
+        res.status(200).json({ message: "News deleted" });  
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+export const updateNews = async (req, res) => {
+    try{
+        const {author, content, _id, title, preview } = req.body;
+        const updateFile = await News.findByIdAndUpdate(
+            _id, 
+            { $set: { preview: preview, author: author, content: content, title: title } },
+            { new: true }
+          );
+        if (!updateFile) {
+            return res.status(404).send({ message: "News not found" });
+        }
+        res.json(updateFile)
+    } catch(err){
+        res.status(500).json({ error: err.message })
+    }
+}

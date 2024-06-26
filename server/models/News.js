@@ -26,6 +26,10 @@ const NewsSchema = new Schema({
   imagePath: {
     type: String,
   },
+  showFlag: {
+    type: Boolean,
+    default: true
+  }
 });
 
 const News = mongoose.model("News", NewsSchema);

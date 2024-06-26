@@ -126,6 +126,10 @@
 }
 
 @media screen and (min-width: 768px) {
+  
+  .container {
+    height: 60vh;
+  }
   .card__container {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1.5rem;
@@ -134,7 +138,7 @@
 
 @media screen and (min-width: 1120px) {
   .container {
-    height: 130vh;
+    height: 56vh;
   }
 
   .card__container {

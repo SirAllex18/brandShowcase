@@ -46,7 +46,7 @@ const NewsPage = () => {
           </Typography>
           <CardMedia
             component="img"
-            image={`${process.env.PUBLIC_URL}/assets/NewsPicture.webp`}
+            image={image}
             alt="News Image"
             sx={{
               marginTop: "1rem",

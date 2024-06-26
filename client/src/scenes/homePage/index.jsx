@@ -16,8 +16,10 @@ import PlayersSlider from "widgets/Players";
 import Trophies from "widgets/Trophies";
 import Footer from "scenes/footer";
 import NewsDialogue from "widgets/NewsDialogue";
+import NewsUpdateDialogue from "widgets/NewsUpdateDialogue.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -30,19 +32,47 @@ const HomePage = () => {
     },
     { name: "HP", image: "/assets/hp.png", url: "https://www.hp.com" },
   ];
- 
+
   const [matchInfo, setMatchInfo] = useState([]);
   const [newsItems, setNewsItems] = useState([]);
   const [data, setTrophies] = useState(null);
   const [selectedYear, setSelectedYear] = useState(1990);
   const user = useSelector((state) => state.auth.user);
-  
-  const addNewsItem = (newItem) => {
-    setNewsItems((prevItems) => [newItem, ...prevItems]);
-  };
   const navigate = useNavigate();
+
+
+
+   const addNewsItem = (newItem) => {
+    setNewsItems((prevItems) => {
+      const itemIndex = prevItems.findIndex((item) => item._id === newItem._id);
+      if (itemIndex !== -1) {
+        const updatedItems = [...prevItems];
+        updatedItems[itemIndex] = newItem;
+        return updatedItems;
+      } else {
+        return [newItem, ...prevItems];
+      }
+    });
+  };
+
   const handleYearChange = (year) => {
     setSelectedYear(year);
+  };
+
+  const handleDeleteNews = async (id) => {
+    const deleteNews = await fetch("http://localhost:3001/files/deleteNews", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ _id: id }),
+    });
+    
+    if (deleteNews.ok) {
+      setNewsItems(prevItems => prevItems.map(item => 
+        item._id === id ? { ...item, showFlag: false } : item
+      ));
+    }
   };
 
   useEffect(() => {
@@ -114,17 +144,31 @@ const HomePage = () => {
               />
             </Grid>
             <Grid container item xs={12} justifyContent="center" spacing={3}>
-              {newsItems.map((newsItem) => (
-                <Grid item key={newsItem._id} xs={12} sm={6} md={4} lg={3}>
-                  <NewsCard
-                    id={newsItem._id}
-                    title={newsItem.title}
-                    image={newsItem.imagePath || "/assets/NewsPicture.webp"}
-                    content={newsItem.content}
-                    preview={newsItem.preview}
-                  />
-                </Grid>
-              ))}
+              {newsItems
+                .filter((newsItem) => newsItem.showFlag)
+                .map((newsItem) => (
+                  <Grid item key={newsItem._id} xs={12} sm={6} md={4} lg={3}>
+                    {user?.role === "admin" && (
+                       <Box display="flex" justifyContent="center" alignItems="center">
+                       <Button>
+                       <DeleteSweepIcon
+                         sx= {{ "&:hover": {cursor: "pointer" }}}
+                         onClick={() => handleDeleteNews(newsItem._id)}
+                       />
+                       </Button>
+                       <NewsUpdateDialogue {...newsItem} addNewsItem={addNewsItem}/>
+                     </Box>
+                    )}
+                    <NewsCard
+                      id={newsItem._id}
+                      title={newsItem.title}
+                      image={newsItem.imageUrl || "/assets/NewsPicture.webp"}
+                      content={newsItem.content}
+                      preview={newsItem.preview}
+                    />
+                
+                  </Grid>
+                ))}
             </Grid>
           </Grid>
           {user?.role === "admin" && (
@@ -180,13 +224,11 @@ const HomePage = () => {
         </Box>
         <Container maxWidth="xl">
           <Grid container spacing={2} justifyContent="center">
-            {
-              matchInfo.map((match, index) => (
-                <Grid item xs={12} sm={6} md={index === 1 ? 6 : 3} key={index}>
-                  <MatchCard {...match} showScore={index === 0} />
-                </Grid>
-              ))
-          }
+            {matchInfo.map((match, index) => (
+              <Grid item xs={12} sm={6} md={index === 1 ? 6 : 3} key={index}>
+                <MatchCard {...match} showScore={index === 0} />
+              </Grid>
+            ))}
           </Grid>
         </Container>
         <Box
