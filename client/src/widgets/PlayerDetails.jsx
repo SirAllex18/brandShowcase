@@ -32,7 +32,7 @@ const PlayerCard = ({ position }) => {
   }, []);
 
   return (
-    <Box sx={{ flexGrow: 1, marginLeft: "1rem", marginRigth: "1rem", marginBottom: "1rem" }}>
+    <Box sx={{ flexGrow: 1, marginLeft: "1.7rem" }}>
       <Grid container spacing={5}>
         {players.map((item, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>

@@ -16,7 +16,7 @@ const Item = ({
   imageUrl,
   id,
   subCategory,
-  flag
+  flag=false
 }) => {
   const navigateTo = useNavigate();
   const handleCardClick = () => {
@@ -45,12 +45,12 @@ const Item = ({
         image={imageUrl}
         title="Product Image"
         sx={{
-          objectFit: "cover",
+          objectFit: "fill",
           height: {
             xs: flag ? "350px" : "400px",
             sm: flag ? "400px" : "300px",
             md: flag ? "400px" : "350px",
-            lg: flag ? "700px" : "300px"
+            lg: flag ? "400px" : "400px"
           },
         }}
       />

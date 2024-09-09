@@ -1,8 +1,7 @@
 import React from "react";
-import { Card, CardContent, Box, Typography  } from "@mui/material";
+import { Card, CardContent, Box, Typography } from "@mui/material";
 
 const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date, showScore, probability }) => {
-
   function extractTime(datetimeString) {
     const date = new Date(datetimeString);
     const hours = date.getUTCHours().toString().padStart(2, '0');
@@ -10,7 +9,7 @@ const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date, sh
     return `${hours}:${minutes}`;
   }
   const time = extractTime(date);
-  
+
   return (
     <Card sx={{ borderRadius: "16px", width: "100%" }}>
       <CardContent>
@@ -41,6 +40,8 @@ const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date, sh
               justifyContent: "center",
               alignItems: "center",
               marginY: "1.5rem",
+              flexDirection: { xs: 'row', sm: 'row' },
+              flexWrap: 'nowrap'
             }}
           >
             <img
@@ -48,9 +49,11 @@ const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date, sh
               alt={homeTeam.name}
               style={{ width: "70px", marginRight: "2rem" }}
             />
-            <Typography variant="h3">
-              {showScore ? `${score.home} - ${score.away}` : time }
+           
+            <Typography variant="h3" sx={{ whiteSpace: 'nowrap' }}>
+              {showScore ? `${score.home} - ${score.away}` : time}
             </Typography>
+    
             <img
               src={awayTeam.logo}
               alt={awayTeam.name}
@@ -66,7 +69,7 @@ const MatchCard = ({ homeTeam, awayTeam, score, competitionLogo, venue, date, sh
               <Typography variant="h5"> Win probability: {probability} </Typography>
               <Typography variant="h6"> Provided by AI</Typography>
           </Box>
-        }
+          }
         </Box>
       </CardContent>
     </Card>

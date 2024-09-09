@@ -141,7 +141,7 @@ const HomePage = () => {
           <Grid container justifyContent="center" marginTop="7rem">
             <Grid item xs={12}>
               <MainCard
-                title="Our 27th title, lets go blues!"
+                title="Titlul nostru cu numarul 27!"
                 image="/assets/NewsPicture.webp"
               />
             </Grid>

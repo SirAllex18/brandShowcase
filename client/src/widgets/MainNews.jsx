@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 const MainNews = ({ image, title }) => {
   const navigate = useNavigate();
 
-  const handleCardClick = () => {
-    navigate("/news");
-  };
+  // const handleCardClick = () => {
+  //   navigate("/news");
+  // };
   return (
     <Card
       sx={{
@@ -15,9 +15,8 @@ const MainNews = ({ image, title }) => {
         display: "flex",
         borderRadius: "16px",
         width: "100%",
-        "&:hover": { cursor: "pointer" },
       }}
-      onClick={handleCardClick}
+      // onClick={handleCardClick}
     >
       <CardMedia
         component="img"
@@ -27,11 +26,6 @@ const MainNews = ({ image, title }) => {
         sx={{
           width: "80%",
           height: "auto",
-          transition: "transform 0.3s ease-in-out",
-          "&:hover": {
-            transform: "scale(1.02)",
-            cursor: "pointer",
-          },
         }}
       />
       <CardContent
