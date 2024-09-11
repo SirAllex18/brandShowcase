@@ -1,11 +1,10 @@
 const getImageUrl = (imagePath) => {
-  const serverBaseUrl = 'http://localhost:3001';
-  const clientBaseUrl = 'http://localhost:3000';
-
+  const serverBaseUrl = 'https://brandshowcaseserver.vercel.app'; 
+  const clientBaseUrl = 'https://brand-showcase-gray.vercel.app'; 
   if (imagePath.startsWith('/server-assets')) {
-    return `${serverBaseUrl}${imagePath}`;
+    return `${serverBaseUrl}${imagePath}`; 
   } else {
-    return `${clientBaseUrl}${imagePath}`;
+    return `${clientBaseUrl}${imagePath}`; 
   }
 };
 
