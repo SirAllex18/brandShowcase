@@ -8,15 +8,15 @@ import helmet from "helmet";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath} from "url";
-import authRoutes from "./routes/auth.js";
-import newsRoutes from "./routes/newsInsert.js"
-import trophyRoutes from "./routes/trophies.js"
-import gameRoutes from "./routes/matchDay.js"
-import storeRoutes from "./routes/store.js"
-import playersRoutes from "./routes/players.js"
-import { FileInsert } from "./controllers/NewsInsert.js";
-import { register } from "./controllers/auth.js";
-import "./cronJob.js";
+import authRoutes from "../routes/auth.js";
+import newsRoutes from "../routes/newsInsert.js"
+import trophyRoutes from "../routes/trophies.js"
+import gameRoutes from "../routes/matchDay.js"
+import storeRoutes from "../routes/store.js"
+import playersRoutes from "../routes/players.js"
+import { FileInsert } from "../controllers/NewsInsert.js";
+import { register } from "../controllers/auth.js";
+import "../cronJob.js";
 
 
 /*  CONFIGURATIONS */
@@ -66,9 +66,11 @@ app.use("/games", gameRoutes )
 app.use("/store", storeRoutes)
 app.use("/players", playersRoutes)
 
-const PORT = process.env.PORT || 6001;
 mongoose.connect(process.env.MONGO_URL)
-.then(() => {
-    app.listen(PORT, () => console.log(`Server port: ${PORT}`));
-})
-.catch((error) => console.log(`${error} did not connect`));
+    .then(() => {
+        console.log('Database connected successfully.');
+    })
+    .catch((error) => console.log(`${error} did not connect`));
+
+
+module.exports = app; 
