@@ -31,7 +31,12 @@ dotevn.config();
  app.use(morgan("coomon"));
  app.use(bodyParser.json({ limit: "30mb",  extended: true }));
  app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}));
- app.use(cors())
+ const corsOptions = {
+    origin: 'https://brand-showcase-gray.vercel.app/', 
+    optionsSuccessStatus: 200
+  };
+  
+ app.use(cors(corsOptions));
  app.use("/assets", express.static(path.join(__dirname, '../../client/public/assets')));
 
  app.post("/auth/register", register);
