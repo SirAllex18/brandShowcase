@@ -15,7 +15,7 @@ const PlayerCard = ({ position }) => {
   useEffect(() => {
     const getPlayersByPosition = async (position) => {
       const response = await fetch(
-        "http://localhost:3001/players/playerByPosition",
+        "https://brandshowcaseserver.vercel.app/playerByPosition",
         {
           method: "POST",
           headers: {

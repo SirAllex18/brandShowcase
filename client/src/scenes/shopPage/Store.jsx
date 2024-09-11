@@ -16,7 +16,7 @@ const ShopPage = () => {
   useEffect(() => {
     const getAllCategories = async () => {
       try {
-        const response = await fetch("http://localhost:3001/store/categories");
+        const response = await fetch("https://brandshowcaseserver.vercel.app/store/categories");
         const data = await response.json();
         setNewButtons(data);
       } catch (err) {
@@ -29,7 +29,7 @@ const ShopPage = () => {
   const getProductsByCategory = async (categoryId = defaultCategoryId) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/store/products/${categoryId}`
+        `https://brandshowcaseserver.vercel.app/store/products/${categoryId}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch products");

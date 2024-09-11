@@ -42,7 +42,7 @@ const Form = () => {
   const dispatch = useDispatch();
 
   const handleEmailSubmit = async (values, { setSubmitting }) => {
-    const response = await fetch("http://localhost:3001/auth/login", {
+    const response = await fetch("https://brandshowcaseserver.vercel.app/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: values.email }),
@@ -61,7 +61,7 @@ const Form = () => {
 
   const handleLoginSubmit = async (values, { setSubmitting }) => {
     // Attempt to log in
-    const response = await fetch("http://localhost:3001/auth/login", {
+    const response = await fetch("https://brandshowcaseserver.vercel.app/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -85,7 +85,7 @@ const Form = () => {
 
   const handleRegisterSubmit = async (values, { setSubmitting }) => {
     // Attempt to register
-    const response = await fetch("http://localhost:3001/auth/register", {
+    const response = await fetch("https://brandshowcaseserver.vercel.app/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

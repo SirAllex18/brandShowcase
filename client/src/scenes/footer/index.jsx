@@ -56,7 +56,7 @@ const Footer = () => {
         setAlertOpen(true);
         return;
       }
-      const response = await fetch("http://localhost:3001/auth/email", {
+      const response = await fetch("https://brandshowcaseserver.vercel.app/auth/email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

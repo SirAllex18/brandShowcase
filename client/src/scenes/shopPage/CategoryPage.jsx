@@ -60,7 +60,7 @@ const CategoryPage = () => {
 
   const getProductsByCategory = async (categoryName, title) => {
     const response = await fetch(
-      "http://localhost:3001/store/products/subCategory",
+      "https://brandshowcaseserver.vercel.app/store/products/subCategory",
       {
         method: "POST",
         headers: {
@@ -84,7 +84,7 @@ const CategoryPage = () => {
   const getAllProducts = async (categorySelected) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/store/products/${categorySelected}`
+        `https://brandshowcaseserver.vercel.app/store/products/${categorySelected}`
       );
       const data = await response.json();
       const sortedData = sortProducts(data, sortBy);

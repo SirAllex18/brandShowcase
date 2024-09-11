@@ -59,7 +59,7 @@ const Navbar = () => {
         quantity: item.quantity
       }));
   
-      const response = await fetch("http://localhost:3001/store/products/updateQuantity", {
+      const response = await fetch("https://brandshowcaseserver.vercel.app/store/products/updateQuantity", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

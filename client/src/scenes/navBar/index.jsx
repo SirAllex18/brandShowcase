@@ -71,7 +71,7 @@ const Navbar = () => {
     try{
       const idUser = user._id;
       const emailUser = user.email;
-      const deleteUser = await fetch("http://localhost:3001/auth/deleteUser", {
+      const deleteUser = await fetch("https://brandshowcaseserver.vercel.app/auth/deleteUser", {
         method: "POST",
         headers: {
           "Content-Type" : "application/json"

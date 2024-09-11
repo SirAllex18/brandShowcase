@@ -25,7 +25,7 @@ export default function NewsUpdateDialogue({ author, preview, content, title, _i
     const formJson = Object.fromEntries(formData.entries());
     
     try {
-      const response = await fetch('http://localhost:3001/files/updateNews', { 
+      const response = await fetch('https://brandshowcaseserver.vercel.app/files/updateNews', { 
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ const HistoryPage = () => {
     const getTrophies = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/trophies/getTrophies"
+          "https://brandshowcaseserver.vercel.app/trophies/getTrophies"
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -77,7 +77,7 @@ const HistoryPage = () => {
   const getTrophiesByCompetition = async (year, competition) => {
     try {
       const response = await fetch(
-        "http://localhost:3001/trophies/getTrophiesCompetition",
+        "https://brandshowcaseserver.vercel.app/trophies/getTrophiesCompetition",
         {
           method: "POST",
           headers: {

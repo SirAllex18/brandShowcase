@@ -45,7 +45,7 @@ export default function NewsDialogue({ addNewsItem }) {
     console.log("FormData", formData)
 
     try {
-      const response = await fetch('http://localhost:3001/files/fileInsert', { 
+      const response = await fetch('https://brandshowcaseserver.vercel.app/files/fileInsert', { 
         method: 'POST',
         body: formData,
       });

@@ -63,7 +63,7 @@ const HomePage = () => {
   };
 
   const handleDeleteNews = async (id) => {
-    const deleteNews = await fetch("http://localhost:3001/files/deleteNews", {
+    const deleteNews = await fetch("https://brandshowcaseserver.vercel.app/files/deleteNews", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +81,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchInitialMatches = async () => {
       try {
-        const response = await fetch("http://localhost:3001/games/getMatchDay");
+        const response = await fetch("https://brandshowcaseserver.vercel.app/games/getMatchDay");
         const initialData = await response.json();
         setMatchInfo(initialData);
         dispatch(setMatches(initialData));
@@ -96,7 +96,7 @@ const HomePage = () => {
   useEffect(() => {
     const getNewsItems = async () => {
       try {
-        const response = await fetch("http://localhost:3001/files/getAllNews");
+        const response = await fetch("https://brandshowcaseserver.vercel.app/files/getAllNews");
         const data = await response.json();
         setNewsItems(data);
       } catch (error) {
@@ -111,7 +111,7 @@ const HomePage = () => {
     const getTrophies = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/trophies/getTrophies"
+          "https://brandshowcaseserver.vercel.app/trophies/getTrophies"
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

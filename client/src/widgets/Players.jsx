@@ -15,7 +15,7 @@ const PlayersSlider = () => {
     const getPlayers = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/players/getAllPlayers"
+          "https://brandshowcaseserver.vercel.app/players/getAllPlayers"
         );
 
         if (response.ok) {

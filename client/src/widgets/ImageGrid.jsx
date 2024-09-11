@@ -19,7 +19,7 @@ const ImageGrid = () => {
 
   useEffect(() => {
     const getCategories = async () => {
-      const response = await fetch("http://localhost:3001/store/products/uniqueCategory", {
+      const response = await fetch("https://brandshowcaseserver.vercel.app/products/uniqueCategory", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
