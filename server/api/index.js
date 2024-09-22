@@ -32,7 +32,7 @@ dotevn.config();
  app.use(bodyParser.json({ limit: "30mb",  extended: true }));
  app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}));
  const corsOptions = {
-    origin: ['https://brand-showcase-gray.vercel.app',
+    origin: ['https://sovereignblues.vercel.app/',
         'https://brand-showcase-git-main-sirallex18s-projects.vercel.app',
         'https://brand-showcase-a69my3l8v-sirallex18s-projects.vercel.app'], 
     optionsSuccessStatus: 200
